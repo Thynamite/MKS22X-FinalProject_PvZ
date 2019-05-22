@@ -65,6 +65,7 @@ class Thing implements Detectable, Display{
     }
   }
   
+  
 }
 
 void mousePressed() {
@@ -78,6 +79,7 @@ void mousePressed() {
   else if (Selected != null) {
     Selected.xcor = mouseX;
     Selected.ycor = mouseY;
+    background(255,255,255);
     Selected = null;
   }
 }
