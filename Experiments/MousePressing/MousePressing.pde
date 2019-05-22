@@ -1,5 +1,5 @@
 interface Detectable {
-  Thing detect(int x, int y, int dist);
+  boolean detect(int x, int y, int dist);
 }
 
 interface Display {
@@ -22,10 +22,15 @@ void setup(){
     detects.add(thingy);
   }
   
+  
+  Thing blob = new Thing(random(800), random(800));
+  
 }
 
 void draw() {
-
+  for (Thing a : detects) {
+    a.display();
+  }
 }
 
 class Thing implements Detectable, Display{
@@ -35,17 +40,32 @@ class Thing implements Detectable, Display{
     ycor = y;
   }
   
-  Thing detect(int x, int y, int dist) {
+  boolean detect(int x, int y, int dist) {
     if (abs(x - xcor) < dist && abs(y - ycor) < dist) {
-      return this;
+      return true;
     }
+    return false;
   }
   
   void display() {
+    if (Selected == this) {
+      fill(0,255,0);
+    }
+    else {
+     fill(255,0,0);
+    }
     ellipse(xcor,ycor,50,50);
   }
 }
 
+void mousePressed() {
+  for (Thing a : detects) {
+    if (a.detect(mouseX, mouseY, 50)) {
+      Selected = a;
+    }
+  }
+}
+/*
 void update(int x, int y) {
   if (overPlant(x,y,10,10)) {
     overPlant = true;
@@ -74,18 +94,8 @@ boolean overShovel(int x, int y, int dist) {
 boolean overGrass(int x, int y, int dist) {
 }
 
-void mousePressed() {
-  for (Thing a : detects) {
-    if (overPlant) {
-      Selected = a;
-    }
-    if (overShovel) {
-    }
-    if (overGrass) {
-    }
-  }
-}
 
+*/
 
 
   
