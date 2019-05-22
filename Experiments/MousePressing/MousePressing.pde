@@ -30,6 +30,7 @@ void setup(){
 void draw() {
   for (Thing a : detects) {
     a.display();
+    a.update();
   }
 }
 
@@ -56,13 +57,28 @@ class Thing implements Detectable, Display{
     }
     ellipse(xcor,ycor,50,50);
   }
+  
+  void update() {
+    if (Selected == this) {
+      xcor = mouseX;
+      ycor = mouseY;
+    }
+  }
+  
 }
 
 void mousePressed() {
-  for (Thing a : detects) {
-    if (a.detect(mouseX, mouseY, 50)) {
-      Selected = a;
+  if ( Selected == null) {
+    for (Thing a : detects) {
+      if (a.detect(mouseX, mouseY, 50)) {
+        Selected = a;
+      }
     }
+  }
+  else if (Selected != null) {
+    Selected.xcor = mouseX;
+    Selected.ycor = mouseY;
+    Selected = null;
   }
 }
 /*
