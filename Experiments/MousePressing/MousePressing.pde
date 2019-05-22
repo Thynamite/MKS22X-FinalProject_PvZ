@@ -8,7 +8,8 @@ interface Display {
 
 ArrayList<Thing> detects = new ArrayList<Thing>();
 Thing Selected;
-
+int plantNum;
+boolean overPlant, overShovel, overGrass;
 
 void setup(){
 
@@ -45,10 +46,26 @@ class Thing implements Detectable, Display{
   }
 }
 
-void update(int x, int y) { 
+void update(int x, int y) {
+  if (overPlant(x,y,10,10)) {
+    overPlant = true;
+    overShovel = false;
+    overGrass = false;
+    if (x == 0) {
+      plantNum = 0;
+    }
+    if (x == 1) {
+      
+  }
 }
 
-boolean overPlant(int x, int y, int dist){
+boolean overPlant(int x, int y, int width, int height){
+  if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 boolean overShovel(int x, int y, int dist) {
@@ -58,9 +75,9 @@ boolean overGrass(int x, int y, int dist) {
 }
 
 void mousePressed() {
-  Thing Selected;
   for (Thing a : detects) {
     if (overPlant) {
+      Selected = a;
     }
     if (overShovel) {
     }
