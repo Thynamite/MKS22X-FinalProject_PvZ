@@ -9,6 +9,8 @@ class Sun{
     ellipse(x, y, 20, 20);
   }
   void fall(){
-    this.y += 10;
+    if (this.y != end){
+      this.y += 10;
+    }
   }
 }
