@@ -85,8 +85,9 @@ void mousePressed() {
     for (Thing a : detects) {
       if (a.detect(mouseX, mouseY, 50)) {
 
-        Selected = new Thing(a);
-        displays.add(0,Selected);
+        Selected = a;
+        Thing Selecteds = new Thing(a);
+        displays.add(0,Selecteds);
       }
     }
   }
