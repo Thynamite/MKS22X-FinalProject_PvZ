@@ -4,6 +4,11 @@ class Plant extends Entity {
   double cooldown;
   String ability;
 
+  Plant(int co, double cd, String abs) {
+    cost = co;
+    cooldown = cd;
+    ability = abs;
+  }
 
   void placePlant(int x, int y) {
     xcor = x;
@@ -14,5 +19,7 @@ class Plant extends Entity {
 
   }
 
-  
+  void performAbility() {
+
+  }
 }
