@@ -5,6 +5,7 @@ class Plant extends Entity {
   String ability;
 
   Plant(int co, double cd, String abs) {
+    super(h,d,x,y); //placeholder
     cost = co;
     cooldown = cd;
     ability = abs;
