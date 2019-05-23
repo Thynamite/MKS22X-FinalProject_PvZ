@@ -81,15 +81,21 @@ class Thing implements Detectable, Display{
 }
 
 void mousePressed() {
+
   if ( Selected == null) {  //get a new thing
+    Thing Selecteds = null;
     for (Thing a : detects) {
       if (a.detect(mouseX, mouseY, 50)) {
 
         Selected = a;
-        Thing Selecteds = new Thing(a);
+        Selecteds = new Thing(a);
         displays.add(0,Selecteds);
       }
     }
+    if (Selecteds != null) {
+      detects.add(Selecteds);
+    }
+
   }
   else if (Selected != null) {  //placing a thing, needs a check for validity
     Selected.xcor = mouseX;
