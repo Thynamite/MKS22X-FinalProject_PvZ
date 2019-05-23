@@ -8,7 +8,15 @@ class Gameplay {
   ArrayList<Zombie> aliveorundeadZombies;
   ArrayList<LawnPoolCleaner> lastChances;
 
+
+
+
+}
+
+setup() {
+
+  size(1000,1000);
+  background(19,171,64);
+
   
-
-
 }
