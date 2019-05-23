@@ -1,3 +1,4 @@
+ArrayList<Sun> s = new ArrayList<Sun>();
 void setup() {
   size(1000, 600);
   background(204, 229, 255);
@@ -22,4 +23,18 @@ void setup() {
   textSize(40);
   fill(253, 143, 59);
   text("Sun : ", 10, 40);
+  
+  for (int i = 0; i < 10; i ++){
+    Sun temp = new Sun((float)(Math.random() * 1000), 0.0, (float)(Math.random() * 400));
+    s.add(temp);
+  }
+}
+
+void draw(){
+  for (Sun temp : s){
+    temp.display();
+  }
+  for (Sun temp : s){
+    temp.fall();
+  }
 }
