@@ -1,4 +1,6 @@
 ArrayList<Sun> s = new ArrayList<Sun>();
+int currency = 0;
+
 void setup() {
   size(1000, 600);
   background(204, 229, 255);
@@ -22,7 +24,7 @@ void setup() {
   rect(0, 0, 200, 50);
   textSize(40);
   fill(253, 143, 59);
-  text("Sun : ", 10, 40);
+  text("Sun : " + currency, 10, 40);
 
   for (int i = 0; i < 10; i ++) {
     Sun temp = new Sun((float)(Math.random() * 1000), 0.0, 350);
@@ -44,14 +46,14 @@ void draw() {
   rect(0, 0, 200, 50);
   textSize(40);
   fill(253, 143, 59);
-  text("Sun : ", 10, 40);
+  text("Sun : " + currency, 10, 40);
   for (Sun temp : s) {
     temp.display();
   }
   for (Sun temp : s) {
     temp.fall();
   }
-}
+} 
 
 class Sun{
   float x, y, end;
@@ -67,5 +69,14 @@ class Sun{
     if (this.y != end){
       this.y += 10;
     }
+  }
+}
+
+class Plant{
+  float x, y, HP;
+  Plant(){
+    this.x = x;
+    this.y = y;
+    HP = 100;
   }
 }
