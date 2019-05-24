@@ -26,3 +26,7 @@
 -Brandon
   - Completed MousePressing for duplication of an object, which will be useful for plant placing
   - Cannot access processing due to family member for the night
+# Friday May 24th
+-Joyce
+  - Created zombie class and basic walking path, need to restrict it to be within the grid
+  - Create arraylists display and movable to stop redundancies in draw function
