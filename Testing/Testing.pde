@@ -63,6 +63,7 @@ class Sun{
     end = stop;
   }
   void display(){
+    fill(253, 143, 59);
     ellipse(x, y, 20, 20);
   }
   void fall(){
@@ -78,6 +79,10 @@ class Zombie{
     x = xcor;
     y = ycor;
     HP = 100;
+  }
+  void display(){
+    fill(50,205,50);
+    ellipse(x, y, 30, 30);
   }
   void walkSlowly(){
     if (x != 0){
