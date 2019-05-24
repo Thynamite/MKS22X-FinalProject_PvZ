@@ -57,26 +57,31 @@ void draw() {
 
 class Sun{
   float x, y, end;
-  Sun(float x, float y, float stop){
-    this.x = x;
-    this.y = y;
+  Sun(float xcor, float ycor, float stop){
+    x = xcor;
+    y = ycor;
     end = stop;
   }
   void display(){
     ellipse(x, y, 20, 20);
   }
   void fall(){
-    if (this.y != end){
-      this.y += 10;
+    if (y != end){
+      y += 5;
     }
   }
 }
 
-class Plant{
+class Zombie{
   float x, y, HP;
-  Plant(){
-    this.x = x;
-    this.y = y;
+  Zombie(float xcor, float ycor){
+    x = xcor;
+    y = ycor;
     HP = 100;
   }
+  void walkSlowly(){
+    if (x != 0){
+      x -= 5;
+    }
+  } 
 }
