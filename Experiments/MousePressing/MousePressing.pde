@@ -47,20 +47,24 @@ void draw() {
 
 class Thing implements Detectable, Display{
   float xcor, ycor;
-  
+  String type;
+
   Thing(){
     xcor = random(width);
     ycor = random(height);
+    type = "Thing";
   }
-  
+
   Thing(float x,float y) {
     xcor = x;
     ycor = y;
+    type = "Thing";
   }
 
   Thing(Thing other) {
     xcor = other.xcor;
     ycor = other.ycor;
+    type = "Thing";
   }
 
   boolean detect(int x, int y, int dist) {
@@ -87,20 +91,27 @@ class Thing implements Detectable, Display{
     }
   }
 
+  String isA(){
+    return type;
+  }
+
 }
 
 class Shovel extends Thing {
   Shovel() {
     xcor = 800;
     ycor = 100;
+    type = "Shovel";
   }
 
   void display() {
     fill(153,76,0);
     rect(xcor,ycor,50,50);
   }
-  
-  
+
+  String isA() {
+    return type;
+  }
 }
 
 void mousePressed() {
@@ -110,8 +121,8 @@ void mousePressed() {
     for (Thing a : detects) {
       if (a.detect(mouseX, mouseY, 50)) {
 
-        if (a == shoves) {
-          Selected = Shovel;
+        if (a.isA().equals("Shovel")) {
+          Selected = a;
         }
         else {
           Selected = a;
@@ -127,12 +138,12 @@ void mousePressed() {
 
   }
   else if (Selected != null) {  //placing a thing, needs a check for validity
-    if (Selected == Shovel) {
+    if (Selected.isA().equals("Shovel")) {
       for (Thing a : detects) {
         if (a.detect(mouseX, mouseY, 50)) {
-          a.xcor = null;
-          a.ycor = null;
-          detect.remove(a);
+          a.xcor = -1;
+          a.ycor = -1;
+          detects.remove(a);
         }
       }
       Selected = null;
