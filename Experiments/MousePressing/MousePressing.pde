@@ -27,9 +27,11 @@ void setup(){
 
 
   Thing blob = new Thing(random(800), random(800));
+  detects.add(blob);
+  displays.add(blob);
   Shovel shoves = new Shovel();
   detects.add(shoves);
-  detects.add(shoves);
+  displays.add(shoves);
 }
 
 void draw() {
@@ -45,6 +47,12 @@ void draw() {
 
 class Thing implements Detectable, Display{
   float xcor, ycor;
+  
+  Thing(){
+    xcor = random(width);
+    ycor = random(height);
+  }
+  
   Thing(float x,float y) {
     xcor = x;
     ycor = y;
@@ -79,6 +87,8 @@ class Thing implements Detectable, Display{
     }
   }
 
+}
+
 class Shovel extends Thing {
   Shovel() {
     xcor = 800;
@@ -89,8 +99,8 @@ class Shovel extends Thing {
     fill(153,76,0);
     rect(xcor,ycor,50,50);
   }
-}
-
+  
+  
 }
 
 void mousePressed() {
@@ -100,7 +110,7 @@ void mousePressed() {
     for (Thing a : detects) {
       if (a.detect(mouseX, mouseY, 50)) {
 
-        if (a == Shovel) {
+        if (a == shoves) {
           Selected = Shovel;
         }
         else {
@@ -125,12 +135,16 @@ void mousePressed() {
           detect.remove(a);
         }
       }
+      Selected = null;
     }
-    Selected.xcor = mouseX;
-    Selected.ycor = mouseY;
+    else {
+      Selected.xcor = mouseX;
+      Selected.ycor = mouseY;
 
 
-    Selected = null;
+      Selected = null;
+    }
+
   }
 }
 /*
