@@ -87,9 +87,15 @@ void mousePressed() {
     for (Thing a : detects) {
       if (a.detect(mouseX, mouseY, 50)) {
 
-        Selected = a;
-        Selecteds = new Thing(a);
-        displays.add(0,Selecteds);
+        if (a == Shovel) {
+          Selected = Shovel;
+        }
+        else {
+          Selected = a;
+          Selecteds = new Thing(a);
+          displays.add(0,Selecteds);
+        }
+
       }
     }
     if (Selecteds != null) {
@@ -98,6 +104,15 @@ void mousePressed() {
 
   }
   else if (Selected != null) {  //placing a thing, needs a check for validity
+    if (Selected == Shovel) {
+      for (Thing a : detects) {
+        if (a.detect(mouseX, mouseY, 50)) {
+          a.xcor = null;
+          a.ycor = null;
+          detect.remove(a);
+        }
+      }
+    }
     Selected.xcor = mouseX;
     Selected.ycor = mouseY;
 
