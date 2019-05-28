@@ -1,4 +1,3 @@
-ArrayList<Sun> s = new ArrayList<Sun>();
 int currency = 0;
 ArrayList<Display> thingsToDisplay = new ArrayList<Display>();
 ArrayList<Move> thingsToMove = new ArrayList<Move>();
