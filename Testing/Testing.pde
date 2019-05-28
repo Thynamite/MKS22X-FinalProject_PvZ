@@ -1,8 +1,8 @@
-ArrayList<Sun> s = new ArrayList<Sun>();
 int currency = 0;
 ArrayList<Display> thingsToDisplay = new ArrayList<Display>();
 ArrayList<Move> thingsToMove = new ArrayList<Move>();
-
+ArrayList<Sun> sunList = new ArrayList<Sun>();
+ArrayList<Integer> spawn = new ArrayList<Integer>();
 void setup() {
   size(1000, 600);
   background(204, 229, 255);
@@ -27,13 +27,22 @@ void setup() {
   textSize(40);
   fill(253, 143, 59);
   text("Sun : " + currency, 10, 40);
+  int temp = 1000;
+  
+  for (int i = 130; i < 460; i += 60){
+    spawn.add(i);
+  }
+  
   for (int i = 0; i < 10; i++) {
-    Sun s = new Sun((float)(Math.random() * 1000), 0.0, 350);
+    Sun s = new Sun((float)(Math.random() * 1000), 0.0 - temp, 350);
     thingsToDisplay.add(s);
     thingsToMove.add(s);
-    Zombie z = new Zombie(1000.0, (float)(Math.random() *600));
+    sunList.add(s);
+    int location = (int)(Math.random() * 6);
+    Zombie z = new Zombie(1000.0 + temp, spawn.get(location));
     thingsToDisplay.add(z);
     thingsToMove.add(z);
+    temp += 1000;
   }
 }
 
@@ -59,6 +68,7 @@ void draw() {
   for (Move m : thingsToMove) {
     m.move();
   }
+  mousePressed();
 } 
 
 interface Display {
@@ -95,12 +105,28 @@ class Zombie implements Display, Move {
     HP = 100;
   }
   void display() {
-    fill(50, 205, 50);
+    fill(255, 112, 112);
     ellipse(x, y, 30, 30);
   }
   void move() {
     if (x != 0) {
       x -= 2;
+    }
+  }
+  
+}
+
+color suncolor = color(253, 143, 59);
+void mousePressed(){
+  color pressed = get(mouseX, mouseY);
+  if (pressed == suncolor){
+    for (int i = 0; i < thingsToDisplay.size(); i ++){
+      if (sunList.contains(thingsToDisplay.get(i))){
+        sunList.remove(thingsToDisplay.get(i));
+        thingsToDisplay.remove(thingsToDisplay.get(i));
+        currency += 25;
+      }
+      return;
     }
   }
 }
