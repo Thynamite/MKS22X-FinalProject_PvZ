@@ -28,7 +28,8 @@ void setup(){
 
   Thing blob = new Thing(random(800), random(800));
   Shovel shoves = new Shovel();
-  
+  detects.add(shoves);
+  detects.add(shoves);
 }
 
 void draw() {
