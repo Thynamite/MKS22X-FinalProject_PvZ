@@ -15,7 +15,7 @@ boolean overPlant, overShovel, overGrass;
 
 void setup(){
 
-  size(800,800);
+  size(1000,1000);
   background(255,255,255);
 
 
@@ -43,6 +43,8 @@ void draw() {
   for (Thing a : displays) {
     a.display();
   }
+
+
 }
 
 class Thing implements Detectable, Display{
@@ -109,9 +111,6 @@ class Shovel extends Thing {
     rect(xcor,ycor,50,50);
   }
 
-  String isA() {
-    return type;
-  }
 }
 
 void mousePressed() {
@@ -121,17 +120,12 @@ void mousePressed() {
     for (Thing a : detects) {
       if (a.detect(mouseX, mouseY, 50)) {
 
-        if (a.isA().equals("Shovel")) {
-          Selected = a;
-        }
-        else {
           Selected = a;
           Selecteds = new Thing(a);
           displays.add(0,Selecteds);
         }
 
       }
-    }
     if (Selecteds != null) {
       detects.add(Selecteds);
     }
@@ -139,13 +133,14 @@ void mousePressed() {
   }
   else if (Selected != null) {  //placing a thing, needs a check for validity
     if (Selected.isA().equals("Shovel")) {
+      Thing RemoveMe;
       for (Thing a : detects) {
         if (a.detect(mouseX, mouseY, 50)) {
-          a.xcor = -1;
-          a.ycor = -1;
-          detects.remove(a);
+          RemoveMe = a;
+
         }
       }
+      RemoveMe = null;
       Selected = null;
     }
     else {
