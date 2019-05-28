@@ -27,7 +27,8 @@ void setup(){
 
 
   Thing blob = new Thing(random(800), random(800));
-
+  Shovel shoves = new Shovel();
+  
 }
 
 void draw() {
@@ -77,6 +78,17 @@ class Thing implements Detectable, Display{
     }
   }
 
+class Shovel extends Thing {
+  Shovel() {
+    xcor = 800;
+    ycor = 100;
+  }
+
+  void display() {
+    fill(153,76,0);
+    rect(xcor,ycor,50,50);
+  }
+}
 
 }
 
