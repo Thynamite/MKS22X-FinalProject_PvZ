@@ -3,6 +3,8 @@ ArrayList<Display> thingsToDisplay = new ArrayList<Display>();
 ArrayList<Move> thingsToMove = new ArrayList<Move>();
 ArrayList<Sun> sunList = new ArrayList<Sun>();
 ArrayList<Integer> spawn = new ArrayList<Integer>();
+ArrayList<Test> eaten = new ArrayList<Test>();
+
 void setup() {
   size(1000, 600);
   background(204, 229, 255);
@@ -44,6 +46,12 @@ void setup() {
     thingsToMove.add(z);
     temp += 1000;
   }
+  
+  for (int i = 130; i < 460; i += 60){
+    Test thing = new Test(100, i);
+    thingsToDisplay.add(thing);
+    eaten.add(thing);
+  }
 }
 
 void draw() {
@@ -68,7 +76,12 @@ void draw() {
   for (Move m : thingsToMove) {
     m.move();
   }
-  mousePressed();
+  
+  for (Test t : eaten){
+    if (t.getHP() == 0){
+      thingsToDisplay.remove(t);
+    }
+  }
 } 
 
 interface Display {
@@ -99,21 +112,54 @@ class Sun implements Display, Move {
 
 class Zombie implements Display, Move {
   float x, y, HP;
+  boolean eating;
   Zombie(float xcor, float ycor) {
     x = xcor;
     y = ycor;
     HP = 100;
+    eating = false;
   }
   void display() {
     fill(255, 112, 112);
     ellipse(x, y, 30, 30);
   }
   void move() {
-    if (x != 0) {
+    if (x != 0 && !eating) {
       x -= 2;
     }
   }
+  void eat(Test other){
+    if (x == other.getX() && y == other.getY()){
+      eating = true;
+      other.bitten();
+    }
+  }
   
+}
+
+class Test implements Display{
+  float x, y, HP;
+  Test(float xcor, float ycor){
+    x = xcor;
+    y = ycor;
+    HP = 100;
+  }
+  void display() {
+    fill(50,205,50);
+    ellipse(x, y, 30, 30);
+  }
+  void bitten(){
+    HP -= 25;
+  }
+  float getHP(){
+    return HP;
+  }
+  float getX(){
+    return x;
+  }
+  float getY(){
+    return y;
+  }
 }
 
 color suncolor = color(253, 143, 59);
@@ -125,8 +171,8 @@ void mousePressed(){
         sunList.remove(thingsToDisplay.get(i));
         thingsToDisplay.remove(thingsToDisplay.get(i));
         currency += 25;
+        return;
       }
-      return;
     }
   }
 }
