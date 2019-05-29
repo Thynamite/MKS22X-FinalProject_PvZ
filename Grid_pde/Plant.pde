@@ -4,7 +4,7 @@ class Plant extends Entity {
   double cooldown;
   String ability;
 
-  Plant(int co, double cd, String abs) {
+  Plant(int h, int d, float x, float y, int co, double cd, String abs) {
     super(h,d,x,y); //placeholder
     cost = co;
     cooldown = cd;

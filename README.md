@@ -30,3 +30,10 @@
 -Joyce
   - Created zombie class and basic walking path, need to restrict it to be within the grid
   - Create arraylists display and movable to stop redundancies in draw function
+
+# Monday May 27th
+-Brandon
+  - Started edits to make a shovel interaction, though needs to clean up code to make sense
+# Tuesday May 28th
+-Brandon
+  -Started basic timer class, needs to be specialized 
