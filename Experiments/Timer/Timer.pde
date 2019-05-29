@@ -2,12 +2,15 @@
 ArrayList<Thing> h = new ArrayList<Thing>();
 int x = 0;
 int help,pass;
-
+boolean ready;
 int cooldown;
 
 Timer(int cd) {
   cooldown = cd;
+  ready = false;
+
 }
+
 void setup() {
   size(1200,1200);
   background(255);
@@ -16,6 +19,7 @@ void setup() {
     Thing a = new Thing();
     h.add(a);
   }
+
 
   int help = millis();
 
@@ -26,13 +30,15 @@ void draw() {
 
   int pass = millis() - help;
 
-
-  if (pass > 1000) {
-    for (Thing s: h) {
-      s.move();
-      help = millis();
+  if (!ready) {
+    if (pass > cooldown) {
+      for (Thing s: h) {
+        ready = true;
+        help = millis();
+      }
     }
   }
+
 
   for (Thing s : h) {
     s.display();
