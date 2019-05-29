@@ -1,4 +1,4 @@
-class Entity{
+abstract class Entity{
 
   int health;
   int damage;

@@ -1,15 +1,11 @@
-class Plant extends Entity {
+abstract class Plant extends Entity {
 
   int cost;
   double cooldown;
+  double coolup = 0;
   String ability;
+  boolean ready = true;
 
-  Plant(int h, int d, float x, float y, int co, double cd, String abs) {
-    super(h,d,x,y); //placeholder
-    cost = co;
-    cooldown = cd;
-    ability = abs;
-  }
 
   void placePlant(int x, int y) {
     xcor = x;
@@ -17,9 +13,18 @@ class Plant extends Entity {
   }
 
   void intiateCooldown() {
-
+    ready = false;
   }
 
+  void coolingDown() {
+    if (coolup != 0) {
+      coolup++;
+      if (cooldown <= coolup) {
+        ready = true;
+        coolup = 0;
+      }
+    }
+  }
   void performAbility() {
 
   }
