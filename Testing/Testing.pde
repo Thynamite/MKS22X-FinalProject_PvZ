@@ -125,8 +125,8 @@ void mousePressed(){
         sunList.remove(thingsToDisplay.get(i));
         thingsToDisplay.remove(thingsToDisplay.get(i));
         currency += 25;
+        return;
       }
-      return;
     }
   }
 }
