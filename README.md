@@ -37,3 +37,7 @@
 # Tuesday May 28th
 -Brandon
   -Started basic timer class, needs to be specialized 
+-Joyce 
+  - Collection of suns through clicks - currently only collects the first sun you click on
+  - Fixed the spawn locations of zombies
+  - Made the suns and the zombies appear at different intervals
