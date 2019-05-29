@@ -1,5 +1,7 @@
 
 ArrayList<Thing> h = new ArrayList<Thing>();
+int x = 0;
+int help,pass;
 
 int cooldown;
 
@@ -15,18 +17,20 @@ void setup() {
     h.add(a);
   }
 
+  int help = millis();
 
 }
 
 void draw() {
   background(255);
 
-  int help = millis();
+  int pass = millis() - help;
 
-  if ((help / 10000) == x) {
+
+  if (pass > 1000) {
     for (Thing s: h) {
       s.move();
-      x++;
+      help = millis();
     }
   }
 
@@ -37,7 +41,7 @@ void draw() {
   textSize(100);
   fill(255,0,0);
   text( second(), 100,100);
-  text(help,100,400);
+  text(millis(),100,400);
 }
 
 class Thing {
