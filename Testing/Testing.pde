@@ -4,6 +4,8 @@ ArrayList<Move> thingsToMove = new ArrayList<Move>();
 ArrayList<Sun> sunList = new ArrayList<Sun>();
 ArrayList<Integer> spawn = new ArrayList<Integer>();
 ArrayList<Test> eaten = new ArrayList<Test>();
+ArrayList<Zombie> zom = new ArrayList<Zombie>();
+ArrayList<Damage> damageable = new ArrayList<Damage>();
 
 void setup() {
   size(1000, 600);
@@ -44,6 +46,8 @@ void setup() {
     Zombie z = new Zombie(1000.0 + temp, spawn.get(location));
     thingsToDisplay.add(z);
     thingsToMove.add(z);
+    zom.add(z);
+    damageable.add(z);
     temp += 1000;
   }
   
@@ -51,6 +55,7 @@ void setup() {
     Test thing = new Test(100, i);
     thingsToDisplay.add(thing);
     eaten.add(thing);
+    damageable.add(thing);
   }
 }
 
@@ -69,10 +74,17 @@ void draw() {
   textSize(40);
   fill(253, 143, 59);
   text("Sun : " + currency, 10, 40);
-
+  
   for (Display d : thingsToDisplay) {
     d.display();
   }
+  
+  for (Zombie z : zom){
+    for (Test t : eaten){
+      z.damage(t);
+    }
+  }
+  
   for (Move m : thingsToMove) {
     m.move();
   }
@@ -90,6 +102,10 @@ interface Display {
 
 interface Move {
   void move();
+}
+
+interface Damage {
+  void damage();
 }
 
 class Sun implements Display, Move {
@@ -110,7 +126,7 @@ class Sun implements Display, Move {
   }
 }
 
-class Zombie implements Display, Move {
+class Zombie implements Display, Move, Damage {
   float x, y, HP;
   boolean eating;
   Zombie(float xcor, float ycor) {
@@ -128,8 +144,10 @@ class Zombie implements Display, Move {
       x -= 2;
     }
   }
-  void eat(Test other){
-    if (x == other.getX() && y == other.getY()){
+  void damage(){
+  }
+  void damage(Test other){
+    if (x == other.getX() + 30 && y == other.getY()){
       eating = true;
       other.bitten();
     }
@@ -137,7 +155,7 @@ class Zombie implements Display, Move {
   
 }
 
-class Test implements Display{
+class Test implements Display, Damage{
   float x, y, HP;
   Test(float xcor, float ycor){
     x = xcor;
@@ -149,7 +167,7 @@ class Test implements Display{
     ellipse(x, y, 30, 30);
   }
   void bitten(){
-    HP -= 25;
+    HP -= .5;
   }
   float getHP(){
     return HP;
@@ -159,6 +177,8 @@ class Test implements Display{
   }
   float getY(){
     return y;
+  }
+  void damage(){   
   }
 }
 
