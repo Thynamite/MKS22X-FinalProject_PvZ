@@ -37,7 +37,12 @@
 # Tuesday May 28th
 -Brandon
   -Started basic timer class, needs to be specialized 
+
 -Joyce 
   - Collection of suns through clicks - currently only collects the first sun you click on
   - Fixed the spawn locations of zombies
   - Made the suns and the zombies appear at different intervals
+# Wednesday May 29th
+-Joyce
+  - Fixed issue with the collection of suns
+  - Created a tester class to stand in for plants to test the zombies' functions (doesn't stop when it encounters a plant, but the plant's HP does decrease)
