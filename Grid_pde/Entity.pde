@@ -3,7 +3,7 @@ abstract class Entity{
   int health;
   int damage;
   float xcor,ycor;
-  image img; 
+  image img;
 
   Entity(int h, int d, float x, float y) {
     health = h;
