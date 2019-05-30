@@ -5,25 +5,35 @@ class Projectile extends Entity {
  String pathing;
  boolean isTouching;
 
- Projectile(float x, float y, int dmg, int vel, int hostile) {
+ Projectile(float x, float y, int dmg, int vel, int hostile,String path) {
    xcor = x;
    ycor = y;
    damage = dmg;
    health = 11037;
    velocity = vel;
    isTouching = false;
-
+   pathing = path;
  }
 
  void hitSomethingFromPlant(Zombie e) {
-   if (e.xcor - 50 == this.xcor + 50 && e.ycor == this.ycor) {
+   if (e.getX() - 50 == this.getX() + 50 && e.getY() == this.getY()) {
      isTouching = true;
-
+     e.health - damage;
    }
  }
 
- Entity findTarget() {
-
+ Entity findTarget(ArrayList<Zombie> f) {
+   Zombie closest = null;
+   closestXCor = 10000000000;
+   for (Zombie z : f) {
+     if (z.getY() == this.getY()) {
+       if (z.getX() < closestXCor) {
+         closest = z;
+         closestXCor = z.getX();
+       }
+     }
+   }
+   return closest;
  }
 
  void move() {
@@ -39,6 +49,7 @@ class Projectile extends Entity {
    if(isTouching) {
      health = -100000;
      velocity = 0;
+     damage = 0;
    }
  }
 }
