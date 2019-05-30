@@ -3,12 +3,13 @@ class Projectile extends Entity {
  int velocity;
  int hostility;
  String pathing;
+ boolean isTouching;
 
- boolean hitSomething(Entity e) {
-
+ void hitSomething(Entity e) {
+   if ()
  }
 
  Entity findTarget() {
- 
+
  }
 }

@@ -1,4 +1,4 @@
-class Offensive extends Plant {
+abstract class Offensive extends Plant {
 
   int range;
   boolean firing;
@@ -7,6 +7,9 @@ class Offensive extends Plant {
   boolean isZombieInRange(Zombie z){
     if (z.ycor = this.ycor) {
       firing = true;
+    }
+    else {
+      firing = false;
     }
   }
 
