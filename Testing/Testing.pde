@@ -91,7 +91,8 @@ void draw() {
   
   for (Test t : eaten){
     if (t.getHP() == 0){
-      thingsToDisplay.remove(t);
+      t.goAway();
+ //     thingsToDisplay.remove(t);
     }
   }
 } 
@@ -128,6 +129,7 @@ class Sun implements Display, Move {
 
 class Zombie implements Display, Move, Damage {
   float x, y, HP;
+  int eaten = 0;
   boolean eating;
   Zombie(float xcor, float ycor) {
     x = xcor;
@@ -141,7 +143,7 @@ class Zombie implements Display, Move, Damage {
   }
   void move() {
     if (x != 0 && !eating) {
-      x -= 2;
+      x -= 10;
     }
   }
   void damage(){
@@ -149,10 +151,17 @@ class Zombie implements Display, Move, Damage {
   void damage(Test other){
     if (x == other.getX() + 30 && y == other.getY()){
       eating = true;
-      other.bitten();
+      other.bitten(this);
     }
   }
-  
+  void changeEating() {
+    if (eating == false) {
+      eating = true;
+    }
+    else {
+      eating = false;
+    }
+  }
 }
 
 class Test implements Display, Damage{
@@ -166,8 +175,12 @@ class Test implements Display, Damage{
     fill(50,205,50);
     ellipse(x, y, 30, 30);
   }
-  void bitten(){
-    HP -= .5;
+  void bitten(Zombie z){
+    HP -= 1;
+    if (this.getHP() <= 0){
+      z.move();
+      z.changeEating();
+    }
   }
   float getHP(){
     return HP;
@@ -179,6 +192,9 @@ class Test implements Display, Damage{
     return y;
   }
   void damage(){   
+  }
+  void goAway(){
+    y = 0;
   }
 }
 
