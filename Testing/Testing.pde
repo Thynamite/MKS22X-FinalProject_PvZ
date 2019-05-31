@@ -6,11 +6,19 @@ ArrayList<Integer> spawn = new ArrayList<Integer>();
 ArrayList<Test> eaten = new ArrayList<Test>();
 ArrayList<Zombie> zom = new ArrayList<Zombie>();
 ArrayList<Damage> damageable = new ArrayList<Damage>();
+boolean[][] openfield = new boolean[6][14];
+ArrayList<Test> detects = new ArrayList<Test>();
+
+Test Selected = null;
+//int suntimer = 
+
+interface Detectable{
+  boolean detect(int xcor, int ycor, int dist);
+}
 
 void setup() {
   size(1000, 600);
   background(204, 229, 255);
-  boolean[][] openfield = new boolean[6][14];
   //Create the field
   fill(204, 255, 229);
   for (int i = 100; i < 460; i += 60) {
@@ -56,7 +64,12 @@ void setup() {
     thingsToDisplay.add(thing);
     eaten.add(thing);
     damageable.add(thing);
+    detects.add(thing);
   }
+  
+  Test thingy = new Test(200,200);
+  detects.add(thingy);
+  thingsToDisplay.add(thingy);
 }
 
 void draw() {
@@ -74,7 +87,10 @@ void draw() {
   textSize(40);
   fill(253, 143, 59);
   text("Sun : " + currency, 10, 40);
-  
+      for (Test a : detects) {
+    a.update();
+    //text(a.getX(),a.getX(),a.getY());
+  }
   for (Display d : thingsToDisplay) {
     d.display();
   }
@@ -95,6 +111,14 @@ void draw() {
  //     thingsToDisplay.remove(t);
     }
   }
+
+  
+/*  text(mouseX,400,400);
+  text(mouseY,400,500);
+  if(Selected != null) {
+    text(Selected.toString(),400,600);
+  }
+ */ 
 } 
 
 interface Display {
@@ -164,16 +188,23 @@ class Zombie implements Display, Move, Damage {
   }
 }
 
-class Test implements Display, Damage{
+class Test implements Display, Damage, Detectable{
   float x, y, HP;
   Test(float xcor, float ycor){
     x = xcor;
     y = ycor;
     HP = 100;
   }
+    Test(Test other) {
+    x = other.x;
+    y = other.y;
+    //type = "Thing";
+  }
+  
   void display() {
     fill(50,205,50);
     ellipse(x, y, 30, 30);
+    
   }
   void bitten(Zombie z){
     HP -= 1;
@@ -191,15 +222,33 @@ class Test implements Display, Damage{
   float getY(){
     return y;
   }
+  String toString(){
+    return "help";
+  }
   void damage(){   
   }
   void goAway(){
     y = 0;
   }
+    boolean detect(int xcor, int ycor, int dist) {
+    if (abs(x- xcor) < dist && abs(y - ycor) < dist) {
+      return true;
+    }
+    return false;
+  }
+
+
+  void update() {
+    if (Selected == this) {
+      x = mouseX;
+      y = mouseY;
+    }
+  }
 }
 
 color suncolor = color(253, 143, 59);
 void mousePressed(){
+  
   color pressed = get(mouseX, mouseY);
   if (pressed == suncolor){
     for (int i = 0; i < thingsToDisplay.size(); i ++){
@@ -210,5 +259,44 @@ void mousePressed(){
         return;
       }
     }
+  }
+  
+  if (Selected == null) {
+   Test Selecteds = null;
+    for (Test a : detects) {
+      if (a.detect(mouseX, mouseY, 50)) {
+
+          Selected = a;
+          Selecteds = new Test(a);
+          thingsToDisplay.add(Selecteds);
+        }
+
+      }
+    if (Selecteds != null) {
+      detects.add(Selecteds);
+    }
+  }
+    else if (Selected != null) {  //placing a thing, needs a check for validity
+    /*
+    if (Selected.isA().equals("Shovel")) {
+      Thing RemoveMe;
+      for (Thing a : detects) {
+        if (a.detect(mouseX, mouseY, 50)) {
+          RemoveMe = a;
+
+        }
+      }
+      RemoveMe = null;
+      Selected = null;
+    }
+    else {
+      */
+      Selected.x = mouseX;
+      Selected.y = mouseY;
+
+
+      Selected = null;
+   // }
+
   }
 }
