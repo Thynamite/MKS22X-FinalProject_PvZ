@@ -1,4 +1,4 @@
-int currency = 0;
+int currency = 50;
 ArrayList<Display> thingsToDisplay = new ArrayList<Display>();
 ArrayList<Move> thingsToMove = new ArrayList<Move>();
 ArrayList<Sun> sunList = new ArrayList<Sun>();
@@ -10,7 +10,7 @@ boolean[][] openfield = new boolean[6][14];
 ArrayList<Test> detects = new ArrayList<Test>();
 
 Test Selected = null;
-//int suntimer = 
+int suntimer = 0; //every ten seconds will fall
 
 interface Detectable{
   boolean detect(int xcor, int ycor, int dist);
@@ -40,11 +40,11 @@ void setup() {
   fill(253, 143, 59);
   text("Sun : " + currency, 10, 40);
   int temp = 1000;
-  
+
   for (int i = 130; i < 460; i += 60){
     spawn.add(i);
   }
-  
+
   for (int i = 0; i < 10; i++) {
     Sun s = new Sun((float)(Math.random() * 1000), 0.0 - temp, 350);
     thingsToDisplay.add(s);
@@ -58,7 +58,7 @@ void setup() {
     damageable.add(z);
     temp += 1000;
   }
-  
+
   for (int i = 130; i < 460; i += 60){
     Test thing = new Test(100, i);
     thingsToDisplay.add(thing);
@@ -66,7 +66,7 @@ void setup() {
     damageable.add(thing);
     detects.add(thing);
   }
-  
+
   Test thingy = new Test(200,200);
   detects.add(thingy);
   thingsToDisplay.add(thingy);
@@ -87,24 +87,33 @@ void draw() {
   textSize(40);
   fill(253, 143, 59);
   text("Sun : " + currency, 10, 40);
-      for (Test a : detects) {
+
+  suntimer++;
+  if (suntimer >= 600) {
+    Sun s = new Sun((float)(Math.random() * 1000),random() * 300 + 100, random() * 200 + 200);
+    thingsToDisplay.add(s);
+    thingsToMove.add(s);
+    sunList.add(s);
+  }
+  for (Test a : detects) {
     a.update();
     //text(a.getX(),a.getX(),a.getY());
   }
+
   for (Display d : thingsToDisplay) {
     d.display();
   }
-  
+
   for (Zombie z : zom){
     for (Test t : eaten){
       z.damage(t);
     }
   }
-  
+
   for (Move m : thingsToMove) {
     m.move();
   }
-  
+
   for (Test t : eaten){
     if (t.getHP() == 0){
       t.goAway();
@@ -112,14 +121,14 @@ void draw() {
     }
   }
 
-  
+
 /*  text(mouseX,400,400);
   text(mouseY,400,500);
   if(Selected != null) {
     text(Selected.toString(),400,600);
   }
- */ 
-} 
+ */
+}
 
 interface Display {
   void display();
@@ -200,11 +209,11 @@ class Test implements Display, Damage, Detectable{
     y = other.y;
     //type = "Thing";
   }
-  
+
   void display() {
     fill(50,205,50);
     ellipse(x, y, 30, 30);
-    
+
   }
   void bitten(Zombie z){
     HP -= 1;
@@ -225,7 +234,7 @@ class Test implements Display, Damage, Detectable{
   String toString(){
     return "help";
   }
-  void damage(){   
+  void damage(){
   }
   void goAway(){
     y = 0;
@@ -248,7 +257,7 @@ class Test implements Display, Damage, Detectable{
 
 color suncolor = color(253, 143, 59);
 void mousePressed(){
-  
+
   color pressed = get(mouseX, mouseY);
   if (pressed == suncolor){
     for (int i = 0; i < thingsToDisplay.size(); i ++){
@@ -260,7 +269,7 @@ void mousePressed(){
       }
     }
   }
-  
+
   if (Selected == null) {
    Test Selecteds = null;
     for (Test a : detects) {
