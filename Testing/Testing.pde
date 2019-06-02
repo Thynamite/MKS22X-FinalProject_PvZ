@@ -46,10 +46,12 @@ void setup() {
   }
 
   for (int i = 0; i < 10; i++) {
+    /*
     Sun s = new Sun((float)(Math.random() * 1000), 0.0 - temp, 350);
     thingsToDisplay.add(s);
     thingsToMove.add(s);
     sunList.add(s);
+    */
     int location = (int)(Math.random() * 6);
     Zombie z = new Zombie(1000.0 + temp, spawn.get(location));
     thingsToDisplay.add(z);
@@ -90,10 +92,11 @@ void draw() {
 
   suntimer++;
   if (suntimer >= 600) {
-    Sun s = new Sun((float)(Math.random() * 1000),random() * 300 + 100, random() * 200 + 200);
+    Sun s = new Sun((float)(Math.random() * 1000), 0, random(200) + 200);
     thingsToDisplay.add(s);
     thingsToMove.add(s);
     sunList.add(s);
+    suntimer = 0;
   }
   for (Test a : detects) {
     a.update();
@@ -122,12 +125,14 @@ void draw() {
   }
 
 
-/*  text(mouseX,400,400);
+  text(mouseX,400,400);
   text(mouseY,400,500);
+  /*
   if(Selected != null) {
     text(Selected.toString(),400,600);
   }
  */
+ text(millis(),500,500);
 }
 
 interface Display {
@@ -154,10 +159,16 @@ class Sun implements Display, Move {
     ellipse(x, y, 20, 20);
   }
   void move() {
-    if (y != end) {
+    if (y < end) {
       y += 5;
     }
   }
+  boolean detect(int xcor, int ycor, int dist) {
+  if (abs(x- xcor) < dist && abs(y - ycor) < dist) {
+    return true;
+  }
+  return false;
+}
 }
 
 class Zombie implements Display, Move, Damage {
@@ -199,6 +210,7 @@ class Zombie implements Display, Move, Damage {
 
 class Test implements Display, Damage, Detectable{
   float x, y, HP;
+  boolean isFieldPlant; //for ability to select from a menu or not, may need to adjust for before game start selection
   Test(float xcor, float ycor){
     x = xcor;
     y = ycor;
@@ -253,8 +265,10 @@ class Test implements Display, Damage, Detectable{
       y = mouseY;
     }
   }
-}
 
+
+}
+//ArrayList<float> xcoordinates = {100};
 color suncolor = color(253, 143, 59);
 void mousePressed(){
 
@@ -262,11 +276,14 @@ void mousePressed(){
   if (pressed == suncolor){
     for (int i = 0; i < thingsToDisplay.size(); i ++){
       if (sunList.contains(thingsToDisplay.get(i))){
-        sunList.remove(thingsToDisplay.get(i));
-        thingsToDisplay.remove(thingsToDisplay.get(i));
-        currency += 25;
-        return;
+        if (sunList.get(i).detect(mouseX,mouseY,30) ) {
+          sunList.remove(thingsToDisplay.get(i));
+          thingsToDisplay.remove(thingsToDisplay.get(i));
+          currency += 25;
+          //return;
+        }
       }
+      return;
     }
   }
 
@@ -300,6 +317,7 @@ void mousePressed(){
     }
     else {
       */
+      //if (mouseX )
       Selected.x = mouseX;
       Selected.y = mouseY;
 
