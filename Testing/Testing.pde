@@ -105,7 +105,7 @@ void draw() {
     //listofplants.get(1)
     if(plant1 >= 1000) {
       //listofplants.get(1) ready
-      plant1 = 0; 
+      plant1 = 0;
     }
   }
   for (Test a : detects) {
@@ -291,7 +291,7 @@ void mousePressed(){
   if (Selected == null) {
    Test Selecteds = null;
     for (Test a : detects) {
-      if (a.detect(mouseX, mouseY, 50)) {
+      if (a.detect(mouseX, mouseY, 30)) {
 
           Selected = a;
           Selecteds = new Test(a);
@@ -318,7 +318,7 @@ void mousePressed(){
     }
     else {
       */
-      if (mouseX )
+      //if (mouseX )
       Selected.x = mouseX;
       Selected.y = mouseY;
 
