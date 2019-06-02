@@ -11,6 +11,7 @@ ArrayList<Test> detects = new ArrayList<Test>();
 
 Test Selected = null;
 int suntimer = 0; //every ten seconds will fall
+int plant1 = -1;
 
 interface Detectable{
   boolean detect(int xcor, int ycor, int dist);
@@ -98,6 +99,15 @@ void draw() {
     sunList.add(s);
     suntimer = 0;
   }
+
+  if (plant1 != -1) {
+    plant1++;
+    //listofplants.get(1)
+    if(plant1 >= 1000) {
+      //listofplants.get(1) ready
+      plant1 = 0; 
+    }
+  }
   for (Test a : detects) {
     a.update();
     //text(a.getX(),a.getX(),a.getY());
@@ -163,12 +173,6 @@ class Sun implements Display, Move {
       y += 5;
     }
   }
-  boolean detect(int xcor, int ycor, int dist) {
-  if (abs(x- xcor) < dist && abs(y - ycor) < dist) {
-    return true;
-  }
-  return false;
-}
 }
 
 class Zombie implements Display, Move, Damage {
@@ -268,7 +272,7 @@ class Test implements Display, Damage, Detectable{
 
 
 }
-//ArrayList<float> xcoordinates = {100};
+
 color suncolor = color(253, 143, 59);
 void mousePressed(){
 
@@ -276,14 +280,11 @@ void mousePressed(){
   if (pressed == suncolor){
     for (int i = 0; i < thingsToDisplay.size(); i ++){
       if (sunList.contains(thingsToDisplay.get(i))){
-        if (sunList.get(i).detect(mouseX,mouseY,30) ) {
-          sunList.remove(thingsToDisplay.get(i));
-          thingsToDisplay.remove(thingsToDisplay.get(i));
-          currency += 25;
-          //return;
-        }
+        sunList.remove(thingsToDisplay.get(i));
+        thingsToDisplay.remove(thingsToDisplay.get(i));
+        currency += 25;
+        return;
       }
-      return;
     }
   }
 
@@ -317,7 +318,7 @@ void mousePressed(){
     }
     else {
       */
-      //if (mouseX )
+      if (mouseX )
       Selected.x = mouseX;
       Selected.y = mouseY;
 
