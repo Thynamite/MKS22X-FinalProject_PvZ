@@ -36,9 +36,9 @@
   - Started edits to make a shovel interaction, though needs to clean up code to make sense
 # Tuesday May 28th
 -Brandon
-  -Started basic timer class, needs to be specialized 
+  -Started basic timer class, needs to be specialized
 
--Joyce 
+-Joyce
   - Collection of suns through clicks - currently only collects the first sun you click on
   - Fixed the spawn locations of zombies
   - Made the suns and the zombies appear at different intervals
@@ -46,3 +46,22 @@
 -Joyce
   - Fixed issue with the collection of suns
   - Created a tester class to stand in for plants to test the zombies' functions (doesn't stop when it encounters a plant, but the plant's HP does decrease)
+
+# Thursday May 30th
+
+-Brandon
+  - Work on projectiles in making them detect when they hit something and finding the closest target (zombie)
+  - Preliminary exploration into PeaShooter
+
+# Friday May 31st
+
+-Cooperative
+  - Got zombies unstuck after eating a plant, mainly due to a boolean not being changed back when not next to the plant.
+  - Combined mousepressing elements with test, was stuck due to having an not(!=) instead of (==)
+
+# Saturday June 1st
+
+-Brandon
+  - suntimer for every 10 seconds of game time, a sun will drop, needs to be despawnable too oops
+  - plant cooldown structure
+  - rethinking on how centering would work
