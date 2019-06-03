@@ -143,13 +143,14 @@ void draw() {
   }
  */
  text(millis(),500,500);
- 
- 
+  count += 5;
+ text(count + "count" , 100, 500);
+ if (count == 1000){
    for (Test t : eaten){
      t.shoot();
    }
-
-
+   count = 0;
+ }
 }
 
 interface Display {
