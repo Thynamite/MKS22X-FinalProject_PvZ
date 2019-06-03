@@ -8,6 +8,7 @@ ArrayList<Zombie> zom = new ArrayList<Zombie>();
 ArrayList<Damage> damageable = new ArrayList<Damage>();
 boolean[][] openfield = new boolean[6][14];
 ArrayList<Test> detects = new ArrayList<Test>();
+ArrayList<Bullet> listOfBullets = new ArrayList<Bullet>();
 int count = 0;
 Test Selected = null;
 int suntimer = 0; //every ten seconds will fall
@@ -151,6 +152,15 @@ void draw() {
    }
    count = 0;
  }
+ 
+ for (Bullet b : listOfBullets){
+   for (Zombie z : zom){
+     b.damage(z);
+     if (z.getHP() == 0){
+       z.goAway();
+     }
+   }
+ }
 }
 
 interface Display {
@@ -218,6 +228,21 @@ class Zombie implements Display, Move, Damage {
       eating = false;
     }
   }
+  float getX(){
+    return x;
+  }
+  float getY(){
+    return y;
+  }
+  float getHP(){
+    return HP;
+  }
+  void hit(float loss){
+    HP -= loss;
+  }
+  void goAway(){
+    y = 0;
+  }
 }
 
 class Test implements Display, Damage, Detectable{
@@ -282,6 +307,7 @@ class Test implements Display, Damage, Detectable{
     Bullet b = new Bullet(x, y);
     thingsToDisplay.add(b);
     thingsToMove.add(b);
+    listOfBullets.add(b);
     b.move();
   }
 
@@ -299,6 +325,11 @@ class Bullet implements Display, Move{
   }
   void move(){
     x += 2;
+  }
+  void damage(Zombie z){
+    if (x == z.getX() && y == z.getY()){
+      z.hit(10);
+    }
   }
 }
 color suncolor = color(253, 143, 59);
