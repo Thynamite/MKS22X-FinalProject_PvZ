@@ -327,9 +327,15 @@ class Bullet implements Display, Move{
     x += 2;
   }
   void damage(Zombie z){
-    if (x == z.getX() && y == z.getY()){
+    if (inRange(z)){
       z.hit(10);
     }
+  }
+  boolean inRange(Zombie z){
+    if (z.getX() - x <= 40 && z.getY() - y <= 40){
+      return true;
+    }
+    return false;
   }
 }
 color suncolor = color(253, 143, 59);
