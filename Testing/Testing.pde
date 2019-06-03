@@ -8,7 +8,7 @@ ArrayList<Zombie> zom = new ArrayList<Zombie>();
 ArrayList<Damage> damageable = new ArrayList<Damage>();
 boolean[][] openfield = new boolean[6][14];
 ArrayList<Test> detects = new ArrayList<Test>();
-
+int count = 0;
 Test Selected = null;
 int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
@@ -143,6 +143,13 @@ void draw() {
   }
  */
  text(millis(),500,500);
+ 
+ 
+   for (Test t : eaten){
+     t.shoot();
+   }
+
+
 }
 
 interface Display {
@@ -270,9 +277,29 @@ class Test implements Display, Damage, Detectable{
     }
   }
 
+  void shoot(){
+    Bullet b = new Bullet(x, y);
+    thingsToDisplay.add(b);
+    thingsToMove.add(b);
+    b.move();
+  }
 
 }
 
+class Bullet implements Display, Move{
+  float x, y;
+  Bullet(float xcor, float ycor){
+    x = xcor;
+    y = ycor;
+  }
+  void display(){
+    fill(220,220,220);
+    ellipse(x, y, 10, 10);
+  }
+  void move(){
+    x += 2;
+  }
+}
 color suncolor = color(253, 143, 59);
 void mousePressed(){
 
