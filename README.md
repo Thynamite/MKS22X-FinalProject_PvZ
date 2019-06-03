@@ -65,3 +65,10 @@
   - suntimer for every 10 seconds of game time, a sun will drop, needs to be despawnable too oops
   - plant cooldown structure
   - rethinking on how centering would work
+
+# Sunday June 2nd
+
+-Joyce
+  -Created a bullet class
+  -Created a timer for the bullets' generation
+  -Added damage function to the bullets, only works on non-moving zombies
