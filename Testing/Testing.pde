@@ -9,6 +9,7 @@ ArrayList<Damage> damageable = new ArrayList<Damage>();
 boolean[][] openfield = new boolean[6][14];
 ArrayList<Test> detects = new ArrayList<Test>();
 ArrayList<Bullet> listOfBullets = new ArrayList<Bullet>();
+ArrayList<Bullet> remove = new ArrayList<Bullet>();
 int count = 0;
 Test Selected = null;
 int suntimer = 0; //every ten seconds will fall
@@ -155,11 +156,19 @@ void draw() {
  
  for (Bullet b : listOfBullets){
    for (Zombie z : zom){
-     b.damage(z);
-     if (z.getHP() == 0){
-       z.goAway();
+     if (b.inRange(z)){
+       b.damage(z);
+       if (z.getHP() == 0){
+         z.goAway();
+       }
+       remove.add(b);
      }
    }
+ }
+ 
+ for (Bullet b : remove){
+   thingsToDisplay.remove(b);
+   thingsToMove.remove(b);
  }
 }
 
@@ -328,11 +337,11 @@ class Bullet implements Display, Move{
   }
   void damage(Zombie z){
     if (inRange(z)){
-      z.hit(10);
+      z.hit(1);
     }
   }
   boolean inRange(Zombie z){
-    if (z.getX() - x <= 40 && z.getY() - y <= 40){
+    if (z.getX() - x <= 20 && z.getY() - y <= 20){
       return true;
     }
     return false;
