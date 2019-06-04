@@ -228,6 +228,12 @@ class Zombie implements Display, Move, Damage {
   }
   void damage(){
   }
+  void touchDefense(LastDefense d) {
+    if (x == d.getX() + 30 && y = d.getY()) {
+      HP = 0;
+      d.changeTriggered();
+    }
+  }
   void damage(Test other){
     if (x == other.getX() + 30 && y == other.getY()){
       eating = true;
@@ -376,6 +382,17 @@ class LastDefense implements Display, Move {
       triggered = false;
       x = -100;
       y = -100;
+    }
+  }
+  float getX(){
+    return x;
+  }
+  float getY(){
+    return y;
+  }
+  void changeTriggered() {
+    if (!triggered) {
+      triggered = true;
     }
   }
 }
