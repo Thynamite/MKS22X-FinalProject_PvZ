@@ -48,8 +48,8 @@ void setup() {
   for (int i = 130; i < 460; i += 60){
     spawn.add(i);
   }
-
-  for (int i = 0; i < 10; i++) {
+  int rands = (int)random(50) + 10;
+  for (int i = 0; i < rands; i++) {
     /*
     Sun s = new Sun((float)(Math.random() * 1000), 0.0 - temp, 350);
     thingsToDisplay.add(s);
@@ -74,12 +74,13 @@ void setup() {
 
     LastDefense d = new LastDefense(70,i,"LawnMower");
     thingsToDisplay.add(d);
-    thingsToMove.add(d);
+    //thingsToMove.add(d);
   }
-
+  /*
   Test thingy = new Test(200,200);
   detects.add(thingy);
   thingsToDisplay.add(thingy);
+  */
 }
 
 void draw() {
@@ -128,6 +129,10 @@ void draw() {
     for (Test t : eaten){
       z.damage(t);
     }
+
+    for (LastDefense ds: defenses) {
+      z.touchDefense(ds);
+    }
   }
 
   for (Move m : thingsToMove) {
@@ -141,9 +146,10 @@ void draw() {
     }
   }
 
-
+  /*
   text(mouseX,400,400);
   text(mouseY,400,500);
+  */
   /*
   if(Selected != null) {
     text(Selected.toString(),400,600);
@@ -229,9 +235,10 @@ class Zombie implements Display, Move, Damage {
   void damage(){
   }
   void touchDefense(LastDefense d) {
-    if (x == d.getX() + 30 && y = d.getY()) {
-      HP = 0;
+    if (x <= d.getX() && y == d.getY()) {
+
       d.changeTriggered();
+      thingsToMove.add(d);
     }
   }
   void damage(Test other){
@@ -375,20 +382,25 @@ class LastDefense implements Display, Move {
     ellipse(x,y,20,20);
   }
   void move() {
-    if (triggered) {
-      x++;
-    }
-    if (x > width) {
+
+      x+= 10;
+
+
+    if (x >= width) {
       triggered = false;
       x = -100;
       y = -100;
     }
+
   }
   float getX(){
     return x;
   }
   float getY(){
     return y;
+  }
+  String getTriggered() {
+    return "" + triggered;
   }
   void changeTriggered() {
     if (!triggered) {
