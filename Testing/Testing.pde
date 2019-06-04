@@ -1,5 +1,6 @@
 int currency = 50;
 ArrayList<Display> thingsToDisplay = new ArrayList<Display>();
+ArrayList<Display> thingsToRemove = new ArrayList<Display>();
 ArrayList<Move> thingsToMove = new ArrayList<Move>();
 ArrayList<Sun> sunList = new ArrayList<Sun>();
 ArrayList<Integer> spawn = new ArrayList<Integer>();
@@ -146,6 +147,16 @@ void draw() {
     }
   }
 
+  for (Display d : thingsToDisplay) {
+    if (d.getX() == -100 && d.getY() == -100) {
+      thingsToRemove.add(d);
+    }
+  }
+  if (thingsToRemove.size() > 0) {
+    for (int x = 0; x < thingsToMove.size(), x++) {
+      thingsToRemove.remove();
+    }
+  }
   /*
   text(mouseX,400,400);
   text(mouseY,400,500);
