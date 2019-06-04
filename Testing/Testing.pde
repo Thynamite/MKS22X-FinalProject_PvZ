@@ -153,8 +153,8 @@ void draw() {
     }
   }
   if (thingsToRemove.size() > 0) {
-    for (int x = 0; x < thingsToMove.size(), x++) {
-      thingsToRemove.remove();
+    for (int x = 0; x < thingsToRemove.size(); x++) {
+      thingsToRemove.remove(x);
     }
   }
   /*
@@ -196,6 +196,8 @@ void draw() {
 
 interface Display {
   void display();
+  float getX();
+  float getY();
 }
 
 interface Move {
@@ -222,6 +224,12 @@ class Sun implements Display, Move {
       y += 5;
     }
   }
+  float getX(){
+    return x;
+  }
+  float getY(){
+    return y;
+  }
 }
 
 class Zombie implements Display, Move, Damage {
@@ -239,7 +247,10 @@ class Zombie implements Display, Move, Damage {
     ellipse(x, y, 30, 30);
   }
   void move() {
-    if (x != 0 && !eating) {
+    if (x == -100) {
+      return;
+    }
+    else if (x != 0 && !eating) {
       x -= 10;
     }
   }
@@ -279,7 +290,8 @@ class Zombie implements Display, Move, Damage {
     HP -= loss;
   }
   void goAway(){
-    y = 0;
+    y = -100;
+    x = -100;
   }
 }
 
@@ -324,7 +336,8 @@ class Test implements Display, Damage, Detectable{
   void damage(){
   }
   void goAway(){
-    y = 0;
+    y = -100;
+    x = -100;
   }
     boolean detect(int xcor, int ycor, int dist) {
     if (abs(x- xcor) < dist && abs(y - ycor) < dist) {
@@ -374,6 +387,12 @@ class Bullet implements Display, Move{
       return true;
     }
     return false;
+  }
+  float getX(){
+    return x;
+  }
+  float getY(){
+    return y;
   }
 }
 
