@@ -10,6 +10,7 @@ boolean[][] openfield = new boolean[6][14];
 ArrayList<Test> detects = new ArrayList<Test>();
 ArrayList<Bullet> listOfBullets = new ArrayList<Bullet>();
 ArrayList<Bullet> remove = new ArrayList<Bullet>();
+ArrayList<LastDefense> defenses = new ArrayList<LastDefense>();
 int count = 0;
 Test Selected = null;
 int suntimer = 0; //every ten seconds will fall
@@ -70,6 +71,10 @@ void setup() {
     eaten.add(thing);
     damageable.add(thing);
     detects.add(thing);
+
+    LastDefense d = new LastDefense(70,i,"LawnMower");
+    thingsToDisplay.add(d);
+    thingsToMove.add(d);
   }
 
   Test thingy = new Test(200,200);
@@ -373,10 +378,8 @@ class LastDefense implements Display, Move {
       y = -100;
     }
   }
-
-
-
 }
+
 color suncolor = color(253, 143, 59);
 void mousePressed(){
 
