@@ -153,7 +153,7 @@ void draw() {
    }
    count = 0;
  }
- 
+
  for (Bullet b : listOfBullets){
    for (Zombie z : zom){
      if (b.inRange(z)){
@@ -165,7 +165,7 @@ void draw() {
      }
    }
  }
- 
+
  for (Bullet b : remove){
    thingsToDisplay.remove(b);
    thingsToMove.remove(b);
@@ -346,6 +346,28 @@ class Bullet implements Display, Move{
     }
     return false;
   }
+}
+
+class LastDefense implements Display, Move {
+  float x,y;
+  String laneType;
+  boolean triggered;
+  LastDefense(float xcor, float ycor, String type) {
+    x = xcor;
+    y = ycor;
+    laneType = type;
+    triggered = false;
+  }
+
+  void display() {
+    fill(0,0,255);
+    ellipse(x,y,20,20);
+  }
+  void move() {
+    x+= 1;
+  }
+
+
 }
 color suncolor = color(253, 143, 59);
 void mousePressed(){
