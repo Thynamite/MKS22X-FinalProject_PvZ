@@ -364,8 +364,16 @@ class LastDefense implements Display, Move {
     ellipse(x,y,20,20);
   }
   void move() {
-    x+= 1;
+    if (triggered) {
+      x++;
+    }
+    if (x > width) {
+      triggered = false;
+      x = -100;
+      y = -100;
+    }
   }
+
 
 
 }
