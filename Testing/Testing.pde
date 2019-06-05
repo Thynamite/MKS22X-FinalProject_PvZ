@@ -84,7 +84,7 @@ void setup() {
 
     LastDefense d = new LastDefense(70,i,"LawnMower");
     thingsToDisplay.add(d);
-    thingsToMove.add(d);
+    //thingsToMove.add(d);
   }
   /*
   Test thingy = new Test(200,200);
@@ -146,6 +146,18 @@ void draw() {
   for (Zombie z : zom) {
     for (LastDefense ds: defenses) {
       z.touchDefense(ds);
+    }
+  }
+  for (LastDefense d : defenses) {
+    if (d.getTriggered()) {
+      d.goAway();
+      for (Zombie z : zom) {
+        if (z.getY() == d.getY()) {
+          z.goAway();
+          //thingsToMove.add(d);
+
+        }
+      }
     }
   }
 
@@ -420,7 +432,7 @@ class Bullet implements Display, Move{
   }
 }
 
-class LastDefense implements Display, Move {
+class LastDefense implements Display {
   float x,y;
   String laneType;
   boolean triggered;
@@ -435,6 +447,7 @@ class LastDefense implements Display, Move {
     fill(0,0,255);
     ellipse(x,y,20,20);
   }
+
   void move() {
     if (triggered) {
       x+= 10;
@@ -445,19 +458,23 @@ class LastDefense implements Display, Move {
       x = -100;
       y = -100;
     }
-
   }
+
   float getX(){
     return x;
   }
   float getY(){
     return y;
   }
-  String getTriggered() {
-    return "" + triggered;
+  boolean getTriggered() {
+    return triggered;
   }
   void changeTriggered(boolean t) {
     triggered = t;
+  }
+  void goAway() {
+    x = -100;
+    y = -100;
   }
 }
 
