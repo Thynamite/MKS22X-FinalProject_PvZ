@@ -31,6 +31,8 @@ void setup() {
     peaShooter.resize(50, 50);
     PImage sun = loadImage("sun.png");
     sun.resize(50,50);
+    PImage mower = loadImage("Lawn_Mower.png");
+    mower.resize(50,50);
   size(1000, 600);
   background(204, 229, 255);
   //Create the field
@@ -82,7 +84,7 @@ void setup() {
     damageable.add(thing);
     detects.add(thing);
 
-    LastDefense d = new LastDefense(70,i,"LawnMower");
+    LastDefense d = new LastDefense(70,i,mower);
     thingsToDisplay.add(d);
     //thingsToMove.add(d);
   }
@@ -434,9 +436,9 @@ class Bullet implements Display, Move{
 
 class LastDefense implements Display {
   float x,y;
-  String laneType;
+  PImage laneType;
   boolean triggered;
-  LastDefense(float xcor, float ycor, String type) {
+  LastDefense(float xcor, float ycor, PImage type) {
     x = xcor;
     y = ycor;
     laneType = type;
@@ -444,8 +446,7 @@ class LastDefense implements Display {
   }
 
   void display() {
-    fill(0,0,255);
-    ellipse(x,y,20,20);
+    image(laneType,x,y);
   }
 
   void move() {
