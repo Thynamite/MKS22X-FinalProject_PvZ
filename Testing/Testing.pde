@@ -22,6 +22,15 @@ interface Detectable{
 }
 
 void setup() {
+  imageMode(CENTER);
+    PImage basicZomb = loadImage("zombes.png");
+    basicZomb.resize(50, 50);
+    PImage sunFlower = loadImage("sunflower.png");
+    sunFlower.resize(50, 50);
+    PImage peaShooter = loadImage("Peashooter.png");
+    peaShooter.resize(50, 50);
+    PImage sun = loadImage("sun.png");
+    sun.resize(50,50);
   size(1000, 600);
   background(204, 229, 255);
   //Create the field
@@ -58,7 +67,7 @@ void setup() {
     sunList.add(s);
     */
     int location = (int)(Math.random() * 6);
-    Zombie z = new Zombie(1000.0 + temp, spawn.get(location));
+    Zombie z = new Zombie(1000.0 + temp, spawn.get(location),basicZomb);
     thingsToDisplay.add(z);
     thingsToMove.add(z);
     zom.add(z);
@@ -82,6 +91,8 @@ void setup() {
   detects.add(thingy);
   thingsToDisplay.add(thingy);
   */
+
+
 }
 
 void draw() {
@@ -197,6 +208,7 @@ void draw() {
 }
 
 interface Display {
+
   void display();
   float getX();
   float getY();
@@ -212,14 +224,18 @@ interface Damage {
 
 class Sun implements Display, Move {
   float x, y, end;
+
   Sun(float xcor, float ycor, float stop) {
     x = xcor;
     y = ycor;
     end = stop;
+
   }
   void display() {
+
     fill(253, 143, 59);
     ellipse(x, y, 20, 20);
+
   }
   void move() {
     if (y < end) {
@@ -238,15 +254,20 @@ class Zombie implements Display, Move, Damage {
   float x, y, HP;
   int eaten = 0;
   boolean eating;
-  Zombie(float xcor, float ycor) {
+  PImage p;
+  Zombie(float xcor, float ycor, PImage i) {
     x = xcor;
     y = ycor;
     HP = 100;
     eating = false;
+    p = i;
   }
   void display() {
+    /*
     fill(255, 112, 112);
     ellipse(x, y, 30, 30);
+    */
+    image(p,x,y);
   }
   void move() {
     if (x == -100) {
