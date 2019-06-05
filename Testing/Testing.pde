@@ -75,7 +75,7 @@ void setup() {
 
     LastDefense d = new LastDefense(70,i,"LawnMower");
     thingsToDisplay.add(d);
-    //thingsToMove.add(d);
+    thingsToMove.add(d);
   }
   /*
   Test thingy = new Test(200,200);
@@ -130,7 +130,9 @@ void draw() {
     for (Test t : eaten){
       z.damage(t);
     }
+  }
 
+  for (Zombie z : zom) {
     for (LastDefense ds: defenses) {
       z.touchDefense(ds);
     }
@@ -257,10 +259,11 @@ class Zombie implements Display, Move, Damage {
   void damage(){
   }
   void touchDefense(LastDefense d) {
-    if (x <= d.getX() && y == d.getY()) {
+    if (x <= d.getX() + 30 && y == d.getY()) {
 
-      d.changeTriggered();
-      thingsToMove.add(d);
+      d.changeTriggered(true);
+      HP = 0;
+      //thingsToMove.add(d);
     }
   }
   void damage(Test other){
@@ -412,9 +415,9 @@ class LastDefense implements Display, Move {
     ellipse(x,y,20,20);
   }
   void move() {
-
+    if (triggered) {
       x+= 10;
-
+    }
 
     if (x >= width) {
       triggered = false;
@@ -432,10 +435,8 @@ class LastDefense implements Display, Move {
   String getTriggered() {
     return "" + triggered;
   }
-  void changeTriggered() {
-    if (!triggered) {
-      triggered = true;
-    }
+  void changeTriggered(boolean t) {
+    triggered = t;
   }
 }
 
