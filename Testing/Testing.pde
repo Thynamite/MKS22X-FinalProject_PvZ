@@ -294,7 +294,7 @@ class Zombie implements Display, Move, Damage {
   void damage(){
   }
   void touchDefense(LastDefense d) {
-    if (x <= d.getX() + 30 && y == d.getY()) {
+    if (x == d.getX() + 30 && y == d.getY()) {
 
       d.changeTriggered(true);
       HP = 0;
@@ -476,6 +476,7 @@ class LastDefense implements Display {
   void goAway() {
     x = -100;
     y = -100;
+    triggered = false;
   }
 }
 
