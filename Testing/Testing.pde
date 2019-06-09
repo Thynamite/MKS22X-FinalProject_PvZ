@@ -17,21 +17,27 @@ Test Selected = null;
 int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
 
+PImage basicZomb;
+PImage sunFlower;
+PImage peaShooter;
+PImage sun;
+PImage mower;
+
 interface Detectable{
   boolean detect(int xcor, int ycor, int dist);
 }
 
 void setup() {
   imageMode(CENTER);
-    PImage basicZomb = loadImage("zombes.png");
+    basicZomb = loadImage("zombes.png");
     basicZomb.resize(50, 50);
-    PImage sunFlower = loadImage("sunflower.png");
+    sunFlower = loadImage("sunflower.png");
     sunFlower.resize(50, 50);
-    PImage peaShooter = loadImage("Peashooter.png");
+    peaShooter = loadImage("Peashooter.png");
     peaShooter.resize(50, 50);
-    PImage sun = loadImage("sun.png");
+    sun = loadImage("sun.png");
     sun.resize(50,50);
-    PImage mower = loadImage("Lawn_Mower.png");
+    mower = loadImage("Lawn_Mower.png");
     mower.resize(50,50);
   size(1000, 600);
   background(204, 229, 255);
@@ -115,7 +121,7 @@ void draw() {
 
   suntimer++;
   if (suntimer >= 600) {
-    Sun s = new Sun((float)(Math.random() * 1000), 0, random(200) + 200);
+    Sun s = new Sun((float)(Math.random() * 1000), 0, random(200) + 200, sun);
     thingsToDisplay.add(s);
     thingsToMove.add(s);
     sunList.add(s);
@@ -238,17 +244,17 @@ interface Damage {
 
 class Sun implements Display, Move {
   float x, y, end;
+  PImage p;
 
-  Sun(float xcor, float ycor, float stop) {
+  Sun(float xcor, float ycor, float stop, PImage i) {
     x = xcor;
     y = ycor;
     end = stop;
-
+    p = i;
   }
   void display() {
 
-    fill(253, 143, 59);
-    ellipse(x, y, 20, 20);
+    image(p,x,y);
 
   }
   void move() {
