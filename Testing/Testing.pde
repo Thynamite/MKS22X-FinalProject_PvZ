@@ -84,7 +84,7 @@ void setup() {
   }
 
   for (int i = 130; i < 460; i += 60){
-    Test thing = new Test(100, i);
+    Test thing = new Test(100, i, peaShooter);
     thingsToDisplay.add(thing);
     eaten.add(thing);
     damageable.add(thing);
@@ -342,10 +342,12 @@ class Zombie implements Display, Move, Damage {
 class Test implements Display, Damage, Detectable{
   float x, y, HP;
   boolean isFieldPlant; //for ability to select from a menu or not, may need to adjust for before game start selection
-  Test(float xcor, float ycor){
+  PImage p;
+  Test(float xcor, float ycor, PImage i){
     x = xcor;
     y = ycor;
     HP = 100;
+    p = i;
   }
     Test(Test other) {
     x = other.x;
@@ -354,8 +356,7 @@ class Test implements Display, Damage, Detectable{
   }
 
   void display() {
-    fill(50,205,50);
-    ellipse(x, y, 30, 30);
+    image(p,x,y);
 
   }
   void bitten(Zombie z){
