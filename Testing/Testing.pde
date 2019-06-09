@@ -23,6 +23,7 @@ PImage peaShooter;
 PImage sun;
 PImage mower;
 PImage projectile;
+PImage lawn;
 
 interface Detectable{
   boolean detect(int xcor, int ycor, int dist);
@@ -42,6 +43,8 @@ void setup() {
     mower.resize(50,50);
     projectile = loadImage("ProjectilePea.png");
     projectile.resize(50,50);
+    lawn = loadImage("DayLawnPvZ2.png");
+    lawn.resize(840,360);
 
   size(1000, 600);
   background(204, 229, 255);
@@ -115,20 +118,24 @@ void setup() {
 
 void draw() {
   background(204, 229, 255);
+
   //Create the field
+
   fill(204, 255, 229);
   for (int i = 100; i < 460; i += 60) {
     for (int j = 70; j <= 850; j += 60) {
       rect(j, i, 60, 60);
     }
   }
+  imageMode(CORNER);
+  image(lawn,70,100); //lawn image
   //Create the sun counter
   fill(255, 255, 204);
   rect(0, 0, 200, 50);
   textSize(40);
   fill(253, 143, 59);
   text("Sun : " + currency, 10, 40);
-
+  imageMode(CENTER);
   suntimer++;
   if (suntimer >= 600) {
     Sun s = new Sun((float)(Math.random() * 1000), 0, random(200) + 200, sun);
