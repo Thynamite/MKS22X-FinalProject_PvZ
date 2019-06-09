@@ -10,18 +10,17 @@ class Sun implements Display, Move {
   }
   void display() {
 
-    image(p,x,y);
-
+    image(p, x, y);
   }
   void move() {
     if (y < end) {
       y += 5;
     }
   }
-  float getX(){
+  float getX() {
     return x;
   }
-  float getY(){
+  float getY() {
     return y;
   }
 }

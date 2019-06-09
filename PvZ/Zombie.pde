@@ -13,19 +13,18 @@ class Zombie implements Display, Move, Damage {
   void display() {
     /*
     fill(255, 112, 112);
-    ellipse(x, y, 30, 30);
-    */
-    image(p,x,y);
+     ellipse(x, y, 30, 30);
+     */
+    image(p, x, y);
   }
   void move() {
     if (x == -100) {
       return;
-    }
-    else if (x != 0 && !eating) {
-      x -= 10;
+    } else if (x != 0 && !eating) {
+      x -= 2;
     }
   }
-  void damage(){
+  void damage() {
   }
   void touchDefense(LastDefense d) {
     if (x == d.getX() + 30 && y == d.getY()) {
@@ -35,8 +34,8 @@ class Zombie implements Display, Move, Damage {
       //thingsToMove.add(d);
     }
   }
-  void damage(Plant other){
-    if (x == other.getX() + 30 && y == other.getY()){
+  void damage(Plant other) {
+    if (x == other.getX() + 30 && y == other.getY()) {
       eating = true;
       other.bitten(this);
     }
@@ -44,24 +43,23 @@ class Zombie implements Display, Move, Damage {
   void changeEating() {
     if (eating == false) {
       eating = true;
-    }
-    else {
+    } else {
       eating = false;
     }
   }
-  float getX(){
+  float getX() {
     return x;
   }
-  float getY(){
+  float getY() {
     return y;
   }
-  float getHP(){
+  float getHP() {
     return HP;
   }
-  void hit(float loss){
+  void hit(float loss) {
     HP -= loss;
   }
-  void goAway(){
+  void goAway() {
     y = -100;
     x = -100;
   }

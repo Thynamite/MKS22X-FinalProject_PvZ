@@ -1,5 +1,5 @@
 class SunFlower extends Plant implements Display, Detectable {
-  float x,y;
+  float x, y;
   PImage p;
   int timer;
   float HP;
@@ -14,13 +14,13 @@ class SunFlower extends Plant implements Display, Detectable {
   }
 
   void display() {
-    image(p,x,y);
+    image(p, x, y);
   }
 
-  float getX(){
+  float getX() {
     return x;
   }
-  float getY(){
+  float getY() {
     return y;
   }
 
@@ -32,37 +32,37 @@ class SunFlower extends Plant implements Display, Detectable {
   }
   /*
   void update() {
-    if (Selected == this) {
-      x = mouseX;
-      y = mouseY;
-    }
-  }
-  */
+   if (Selected == this) {
+   x = mouseX;
+   y = mouseY;
+   }
+   }
+   */
 
-  void produceSun(){
-    Sun s = new Sun(x,y,x-10,sun);
+  void produceSun() {
+    Sun s = new Sun(x, y, x-10, sun);
     thingsToDisplay.add(s);
     thingsToMove.add(s);
     sunList.add(s);
   }
 
-  void updateTimer(){
+  void updateTimer() {
     timer++;
   }
 
-  void bitten(Zombie z){
+  void bitten(Zombie z) {
     HP -= 1;
-    if (this.getHP() <= 0){
+    if (this.getHP() <= 0) {
       z.move();
       z.changeEating();
     }
   }
 
-  int getTimer(){
+  int getTimer() {
     return timer;
   }
 
-  void resetTimer(){
+  void resetTimer() {
     timer = 0;
   }
 

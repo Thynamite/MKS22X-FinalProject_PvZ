@@ -1,5 +1,5 @@
 class LastDefense implements Display, Move {
-  float x,y;
+  float x, y;
   PImage laneType;
   boolean triggered;
   LastDefense(float xcor, float ycor, PImage type) {
@@ -10,7 +10,7 @@ class LastDefense implements Display, Move {
   }
 
   void display() {
-    image(laneType,x,y);
+    image(laneType, x, y);
   }
 
   void move() {
@@ -25,10 +25,10 @@ class LastDefense implements Display, Move {
     }
   }
 
-  float getX(){
+  float getX() {
     return x;
   }
-  float getY(){
+  float getY() {
     return y;
   }
   boolean getTriggered() {
