@@ -25,6 +25,7 @@ PImage sun;
 PImage mower;
 PImage projectile;
 PImage lawn;
+PImage end;
 
 interface Detectable{
   boolean detect(int xcor, int ycor, int dist);
@@ -46,7 +47,8 @@ void setup() {
     projectile.resize(50,50);
     lawn = loadImage("DayLawnPvZ2.png");
     lawn.resize(840,360);
-
+    end = loadImage("zombieatebrain.png");
+    end.resize(width,height);
   size(1000, 600);
   background(204, 229, 255);
   //Create the field
@@ -162,12 +164,12 @@ void draw() {
       plant1 = 0;
     }
   }
-
+  /*
   for (Plant a : detects) {
     a.update();
     //text(a.getX(),a.getX(),a.getY());
   }
-
+  */
   for (Display d : thingsToDisplay) {
     d.display();
   }
@@ -252,6 +254,14 @@ void draw() {
  for (Bullet b : remove){
    thingsToDisplay.remove(b);
    thingsToMove.remove(b);
+ }
+
+ for (Zombie z: zom) {
+   if (z.getX() == 0) {
+     noLoop();
+     imageMode(CORNER);
+     image(end,0,0);
+   }
  }
 }
 
@@ -455,14 +465,14 @@ class Test extends Plant implements Display, Damage, Detectable{
     return false;
   }
 
-
+  /*
   void update() {
     if (Selected == this) {
       x = mouseX;
       y = mouseY;
     }
   }
-
+  */
   void shoot(){
     Bullet b = new Bullet(x, y);
     thingsToDisplay.add(b);
@@ -608,7 +618,7 @@ class LastDefense implements Display, Move {
       x+= 10;
     }
 
-    if (x >= width) {
+    if (x >= 1000) {
       triggered = false;
       x = -100;
       y = -100;
@@ -666,7 +676,7 @@ void mousePressed(){
         //detects.add(a);
         thingsToDisplay.add(a);
         */
-        //maybe just a highlight instead of a dragging motion
+        //maybe just a highlight of a selectable plant(in the top menu) instead of a dragging motion
       }
       else if (Selected.equals("sunFlower")) {
         SunFlower s = new SunFlower(mouseX,mouseY,sunFlower);
