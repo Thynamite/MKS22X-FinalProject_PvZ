@@ -66,11 +66,15 @@ class Test extends Plant implements Display, Damage, Detectable {
    }
    */
   void shoot() {
-    Bullet b = new Bullet(x, y);
-    thingsToDisplay.add(b);
-    thingsToMove.add(b);
-    listOfBullets.add(b);
-    b.move();
+    for (Zombie z : zom){
+      if (z.getY() == y && z.getX() <= 1000){
+        Bullet b = new Bullet(x, y);
+        thingsToDisplay.add(b);
+        thingsToMove.add(b);
+        listOfBullets.add(b);
+        b.move();
+      }
+    }
   }
 
   String getType() {
