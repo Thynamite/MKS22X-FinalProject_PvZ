@@ -12,6 +12,7 @@ ArrayList<Plant> detects = new ArrayList<Plant>();
 ArrayList<Bullet> listOfBullets = new ArrayList<Bullet>();
 ArrayList<Bullet> remove = new ArrayList<Bullet>();
 ArrayList<LastDefense> defenses = new ArrayList<LastDefense>();
+ArrayList<SunFlower> sunflows = new ArrayList<SunFlower>();
 int count = 0;
 Plant Selected = null;
 int suntimer = 0; //every ten seconds will fall
@@ -112,6 +113,7 @@ void setup() {
     eaten.add(s);
     //damageable.add(s);
     detects.add(s);
+    sunflows.add(s);
   }
 
 }
@@ -144,7 +146,14 @@ void draw() {
     sunList.add(s);
     suntimer = 0;
   }
-
+  for (SunFlower s: sunflows) {
+    s.updateTimer();
+    if (s.getTimer() >= 1440) {
+      s.produceSun();
+      s.resetTimer();
+    }
+  }
+  
   if (plant1 != -1) {
     plant1++;
     //listofplants.get(1)
@@ -467,7 +476,7 @@ class SunFlower extends Plant implements Display, Detectable {
     x = xc;
     y = yc;
     p = i;
-    timer = 0;
+    timer = 1020; //first sun is 7 seconds
     HP = 100;
   }
 
@@ -515,6 +524,14 @@ class SunFlower extends Plant implements Display, Detectable {
       z.changeEating();
     }
   }
+
+  int getTimer(){
+    return timer;
+  }
+
+  void resetTimer(){
+    timer = 0;
+  }
 }
 
 class Bullet implements Display, Move{
@@ -549,7 +566,7 @@ class Bullet implements Display, Move{
   }
 }
 
-class LastDefense implements Display {
+class LastDefense implements Display, Move {
   float x,y;
   PImage laneType;
   boolean triggered;
