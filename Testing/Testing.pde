@@ -436,14 +436,22 @@ class SunFlower implements Display, Detectable {
     }
     return false;
   }
+  /*
   void update() {
     if (Selected == this) {
       x = mouseX;
       y = mouseY;
     }
   }
+  */
 
+  void produceSun(){
+    Sun s = new Sun(x,y,x-10,sun);
+    thingsToDisplay.add(s);
+    thingsToMove.add(s);
+  }
 }
+
 class Bullet implements Display, Move{
   float x, y;
   Bullet(float xcor, float ycor){
