@@ -22,6 +22,7 @@ PImage sunFlower;
 PImage peaShooter;
 PImage sun;
 PImage mower;
+PImage projectile;
 
 interface Detectable{
   boolean detect(int xcor, int ycor, int dist);
@@ -39,6 +40,9 @@ void setup() {
     sun.resize(50,50);
     mower = loadImage("Lawn_Mower.png");
     mower.resize(50,50);
+    projectile = loadImage("ProjectilePea.png");
+    projectile.resize(50,50);
+
   size(1000, 600);
   background(204, 229, 255);
   //Create the field
@@ -508,13 +512,13 @@ class SunFlower extends Plant implements Display, Detectable {
 
 class Bullet implements Display, Move{
   float x, y;
+  PImage p = projectile;
   Bullet(float xcor, float ycor){
     x = xcor;
     y = ycor;
   }
   void display(){
-    fill(220,220,220);
-    ellipse(x, y, 10, 10);
+    image(p,x,y);
   }
   void move(){
     x += 2;
