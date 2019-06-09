@@ -261,7 +261,7 @@ void draw() {
       image(end, 0, 0);
     }
   }
-  for (Sun s : sunList){
+  for (Sun s : sunList) {
     s.decay();
   }
 }
@@ -270,42 +270,44 @@ color suncolor = color(253, 143, 59);
 
 void mousePressed() {
 
-  color pressed = get(mouseX, mouseY);
-  if (pressed == suncolor) {
-    for (int i = 0; i < thingsToDisplay.size(); i ++) {
-      if (sunList.contains(thingsToDisplay.get(i))) {
-        sunList.remove(thingsToDisplay.get(i));
-        thingsToDisplay.remove(thingsToDisplay.get(i));
-        currency += 25;
-        return;
+  //color pressed = get(mouseX, mouseY);
+  for (Sun s : sunList) {
+    if (abs(mouseX - s.getX()) <= 10 && abs(mouseY - s.getY()) <= 10){
+      for (int i = 0; i < thingsToDisplay.size(); i ++) {
+        if (sunList.contains(thingsToDisplay.get(i))) {
+          sunList.remove(thingsToDisplay.get(i));
+          thingsToDisplay.remove(thingsToDisplay.get(i));
+          currency += 25;
+          return;
+        }
       }
     }
   }
 
-  if (Selected.equals("Nothing")) {
+    if (Selected.equals("Nothing")) {
 
-    for (Plant a : detects) {
-      if (a.detect(mouseX, mouseY, 30)) {
-        Selected = a.getType();
-        return;
+      for (Plant a : detects) {
+        if (a.detect(mouseX, mouseY, 30)) {
+          Selected = a.getType();
+          return;
+        }
       }
-    }
-    if (!Selected.equals("Nothing") ) {
-      if (Selected.equals("PeaShooter")) {
-        /*
+      if (!Selected.equals("Nothing") ) {
+        if (Selected.equals("PeaShooter")) {
+          /*
         Test a = new Test(mouseX,mouseY,peaShooter);
-         //detects.add(a);
-         thingsToDisplay.add(a);
-         */
-        //maybe just a highlight of a selectable plant(in the top menu) instead of a dragging motion
-      } else if (Selected.equals("sunFlower")) {
-        SunFlower s = new SunFlower(mouseX, mouseY, sunFlower);
-        thingsToDisplay.add(s);
+           //detects.add(a);
+           thingsToDisplay.add(a);
+           */
+          //maybe just a highlight of a selectable plant(in the top menu) instead of a dragging motion
+        } else if (Selected.equals("sunFlower")) {
+          SunFlower s = new SunFlower(mouseX, mouseY, sunFlower);
+          thingsToDisplay.add(s);
+        }
       }
-    }
-  } else if (!Selected.equals("Nothing")) {  //placing a thing, needs a check for validity
+    } else if (!Selected.equals("Nothing")) {  //placing a thing, needs a check for validity
 
-    //make the new object here and just place it on the click, needs to center though
-    Selected = null;
+      //make the new object here and just place it on the click, needs to center though
+      Selected = null;
+    }
   }
-}
