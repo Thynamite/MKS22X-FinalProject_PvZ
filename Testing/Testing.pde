@@ -409,6 +409,41 @@ class Test implements Display, Damage, Detectable{
 
 }
 
+class SunFlower implements Display, Detectable {
+  float x,y;
+  PImage p;
+
+  SunFlower (float xc, float yc, PImage i) {
+    x = xc;
+    y = yc;
+    p = i;
+  }
+
+  void display() {
+    image(p,x,y);
+  }
+
+  float getX(){
+    return x;
+  }
+  float getY(){
+    return y;
+  }
+
+  boolean detect(int xcor, int ycor, int dist) {
+    if (abs(x- xcor) < dist && abs(y - ycor) < dist) {
+      return true;
+    }
+    return false;
+  }
+  void update() {
+    if (Selected == this) {
+      x = mouseX;
+      y = mouseY;
+    }
+  }
+
+}
 class Bullet implements Display, Move{
   float x, y;
   Bullet(float xcor, float ycor){
