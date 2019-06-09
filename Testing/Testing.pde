@@ -153,7 +153,7 @@ void draw() {
       s.resetTimer();
     }
   }
-  
+
   if (plant1 != -1) {
     plant1++;
     //listofplants.get(1)
@@ -239,6 +239,7 @@ void draw() {
    for (Zombie z : zom){
      if (b.inRange(z)){
        b.damage(z);
+       b.goAway();
        if (z.getHP() == 0){
          z.goAway();
        }
@@ -392,7 +393,7 @@ class Zombie implements Display, Move, Damage {
 class Test extends Plant implements Display, Damage, Detectable{
   float x, y, HP;
   boolean isFieldPlant; //for ability to select from a menu or not, may need to adjust for before game start selection
-  PImage p;
+  PImage p = peaShooter;
   Test(float xcor, float ycor, PImage i){
     x = xcor;
     y = ycor;
@@ -545,6 +546,9 @@ class Bullet implements Display, Move{
     image(p,x,y);
   }
   void move(){
+    if (x == -100) {
+      return;
+    }
     x += 2;
   }
   void damage(Zombie z){
@@ -563,6 +567,10 @@ class Bullet implements Display, Move{
   }
   float getY(){
     return y;
+  }
+  void goAway(){
+    x = -100;
+    y = -100;
   }
 }
 
