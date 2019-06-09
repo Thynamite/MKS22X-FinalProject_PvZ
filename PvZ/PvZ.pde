@@ -261,6 +261,9 @@ void draw() {
       image(end, 0, 0);
     }
   }
+  for (Sun s : sunList){
+    s.decay();
+  }
 }
 
 color suncolor = color(253, 143, 59);
