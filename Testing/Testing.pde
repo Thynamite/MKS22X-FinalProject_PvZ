@@ -4,16 +4,16 @@ ArrayList<Display> thingsToRemove = new ArrayList<Display>();
 ArrayList<Move> thingsToMove = new ArrayList<Move>();
 ArrayList<Sun> sunList = new ArrayList<Sun>();
 ArrayList<Integer> spawn = new ArrayList<Integer>();
-ArrayList<Test> eaten = new ArrayList<Test>();
+ArrayList<Plant> eaten = new ArrayList<Plant>();
 ArrayList<Zombie> zom = new ArrayList<Zombie>();
 ArrayList<Damage> damageable = new ArrayList<Damage>();
 boolean[][] openfield = new boolean[6][14];
-ArrayList<Test> detects = new ArrayList<Test>();
+ArrayList<Plant> detects = new ArrayList<Plant>();
 ArrayList<Bullet> listOfBullets = new ArrayList<Bullet>();
 ArrayList<Bullet> remove = new ArrayList<Bullet>();
 ArrayList<LastDefense> defenses = new ArrayList<LastDefense>();
 int count = 0;
-Test Selected = null;
+Plant Selected = null;
 int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
 
@@ -99,7 +99,13 @@ void setup() {
   detects.add(thingy);
   thingsToDisplay.add(thingy);
   */
-
+  for (int i = 130; i < 460; i += 60) {
+    SunFlower s = new SunFlower(200, i, sunFlower);
+    thingsToDisplay.add(s);
+    eaten.add(s);
+    //damageable.add(s);
+    detects.add(s);
+  }
 
 }
 
@@ -136,7 +142,7 @@ void draw() {
       plant1 = 0;
     }
   }
-  for (Test a : detects) {
+  for (Plant a : detects) {
     a.update();
     //text(a.getX(),a.getX(),a.getY());
   }
@@ -146,7 +152,7 @@ void draw() {
   }
 
   for (Zombie z : zom){
-    for (Test t : eaten){
+    for (Plant t : eaten){
       z.damage(t);
     }
   }
@@ -173,7 +179,7 @@ void draw() {
     m.move();
   }
 
-  for (Test t : eaten){
+  for (Plant t : eaten){
     if (t.getHP() == 0){
       t.goAway();
  //     thingsToDisplay.remove(t);
@@ -203,7 +209,7 @@ void draw() {
   count += 5;
  text(count + "count" , 100, 500);
  if (count == 1000){
-   for (Test t : eaten){
+   for (Plant t : eaten){
      t.shoot();
    }
    count = 0;
@@ -270,6 +276,30 @@ class Sun implements Display, Move {
   }
 }
 
+abstract class Plant implements Detectable, Display{
+  float x,y,HP;
+  PImage p;
+  void update(){};
+  float getHP(){
+    return HP;
+  };
+  void goAway(){};
+  void shoot(){};
+  float getX() {
+    return x;
+  }
+  float getY(){
+    return y;
+  }
+  void bitten(Zombie z){};
+  boolean detect(int xcor, int ycor, int dist){
+    return false;
+  }
+  void display(){
+    image(p,x,y);
+  }
+}
+
 class Zombie implements Display, Move, Damage {
   float x, y, HP;
   int eaten = 0;
@@ -307,7 +337,7 @@ class Zombie implements Display, Move, Damage {
       //thingsToMove.add(d);
     }
   }
-  void damage(Test other){
+  void damage(Plant other){
     if (x == other.getX() + 30 && y == other.getY()){
       eating = true;
       other.bitten(this);
@@ -339,7 +369,7 @@ class Zombie implements Display, Move, Damage {
   }
 }
 
-class Test implements Display, Damage, Detectable{
+class Test extends Plant implements Display, Damage, Detectable{
   float x, y, HP;
   boolean isFieldPlant; //for ability to select from a menu or not, may need to adjust for before game start selection
   PImage p;
@@ -352,9 +382,16 @@ class Test implements Display, Damage, Detectable{
     Test(Test other) {
     x = other.x;
     y = other.y;
+    HP = 100;
     //type = "Thing";
+    p = other.p;
   }
-
+  Test (Plant other) {
+    x = other.x;
+    y = other.y;
+    HP = 100;
+    p = other.p;
+  }
   void display() {
     image(p,x,y);
 
@@ -409,16 +446,18 @@ class Test implements Display, Damage, Detectable{
 
 }
 
-class SunFlower implements Display, Detectable {
+class SunFlower extends Plant implements Display, Detectable {
   float x,y;
   PImage p;
   int timer;
+  float HP;
 
   SunFlower (float xc, float yc, PImage i) {
     x = xc;
     y = yc;
     p = i;
     timer = 0;
+    HP = 100;
   }
 
   void display() {
@@ -451,12 +490,20 @@ class SunFlower implements Display, Detectable {
     Sun s = new Sun(x,y,x-10,sun);
     thingsToDisplay.add(s);
     thingsToMove.add(s);
+    sunList.add(s);
   }
 
   void updateTimer(){
     timer++;
   }
-  
+
+  void bitten(Zombie z){
+    HP -= 1;
+    if (this.getHP() <= 0){
+      z.move();
+      z.changeEating();
+    }
+  }
 }
 
 class Bullet implements Display, Move{
@@ -535,9 +582,11 @@ class LastDefense implements Display {
     y = -100;
     triggered = false;
   }
+
 }
 
 color suncolor = color(253, 143, 59);
+
 void mousePressed(){
 
   color pressed = get(mouseX, mouseY);
@@ -553,8 +602,8 @@ void mousePressed(){
   }
 
   if (Selected == null) {
-   Test Selecteds = null;
-    for (Test a : detects) {
+    Plant Selecteds = null;
+    for (Plant a : detects) {
       if (a.detect(mouseX, mouseY, 30)) {
 
           Selected = a;
@@ -568,27 +617,12 @@ void mousePressed(){
     }
   }
     else if (Selected != null) {  //placing a thing, needs a check for validity
-    /*
-    if (Selected.isA().equals("Shovel")) {
-      Thing RemoveMe;
-      for (Thing a : detects) {
-        if (a.detect(mouseX, mouseY, 50)) {
-          RemoveMe = a;
 
-        }
-      }
-      RemoveMe = null;
-      Selected = null;
-    }
-    else {
-      */
-      //if (mouseX )
       Selected.x = mouseX;
       Selected.y = mouseY;
 
-
       Selected = null;
-   // }
+
+    }
 
   }
-}
