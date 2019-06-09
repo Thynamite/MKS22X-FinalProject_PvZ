@@ -14,7 +14,7 @@ ArrayList<Bullet> remove = new ArrayList<Bullet>();
 ArrayList<LastDefense> defenses = new ArrayList<LastDefense>();
 ArrayList<SunFlower> sunflows = new ArrayList<SunFlower>();
 int count = 0;
-Plant Selected = null;
+String Selected = "Nothing";
 int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
 
@@ -162,6 +162,7 @@ void draw() {
       plant1 = 0;
     }
   }
+
   for (Plant a : detects) {
     a.update();
     //text(a.getX(),a.getX(),a.getY());
@@ -300,6 +301,7 @@ class Sun implements Display, Move {
 abstract class Plant implements Detectable, Display{
   float x,y,HP;
   PImage p;
+  String str;
   void update(){};
   float getHP(){
     return HP;
@@ -318,6 +320,9 @@ abstract class Plant implements Detectable, Display{
   }
   void display(){
     image(p,x,y);
+  }
+  String getType(){
+    return str;
   }
 }
 
@@ -393,6 +398,7 @@ class Zombie implements Display, Move, Damage {
 class Test extends Plant implements Display, Damage, Detectable{
   float x, y, HP;
   boolean isFieldPlant; //for ability to select from a menu or not, may need to adjust for before game start selection
+  String str = "PeaShooter";
   PImage p = peaShooter;
   Test(float xcor, float ycor, PImage i){
     x = xcor;
@@ -465,6 +471,9 @@ class Test extends Plant implements Display, Damage, Detectable{
     b.move();
   }
 
+  String getType(){
+    return str;
+  }
 }
 
 class SunFlower extends Plant implements Display, Detectable {
@@ -472,6 +481,7 @@ class SunFlower extends Plant implements Display, Detectable {
   PImage p;
   int timer;
   float HP;
+  String str = "sunFlower";
 
   SunFlower (float xc, float yc, PImage i) {
     x = xc;
@@ -532,6 +542,10 @@ class SunFlower extends Plant implements Display, Detectable {
 
   void resetTimer(){
     timer = 0;
+  }
+
+  String getType() {
+    return str;
   }
 }
 
@@ -637,26 +651,32 @@ void mousePressed(){
     }
   }
 
-  if (Selected == null) {
-    Plant Selecteds = null;
+  if (Selected.equals("Nothing")) {
+
     for (Plant a : detects) {
       if (a.detect(mouseX, mouseY, 30)) {
-
-          Selected = a;
-          Selecteds = new Test(a);
-          thingsToDisplay.add(Selecteds);
+          Selected = a.getType();
+          return;
         }
-
       }
-    if (Selecteds != null) {
-      detects.add(Selecteds);
+    if (!Selected.equals("Nothing") ) {
+      if (Selected.equals("PeaShooter")) {
+        /*
+        Test a = new Test(mouseX,mouseY,peaShooter);
+        //detects.add(a);
+        thingsToDisplay.add(a);
+        */
+        //maybe just a highlight instead of a dragging motion
+      }
+      else if (Selected.equals("sunFlower")) {
+        SunFlower s = new SunFlower(mouseX,mouseY,sunFlower);
+        thingsToDisplay.add(s);
+      }
     }
   }
-    else if (Selected != null) {  //placing a thing, needs a check for validity
+    else if (!Selected.equals("Nothing")) {  //placing a thing, needs a check for validity
 
-      Selected.x = mouseX;
-      Selected.y = mouseY;
-
+      //make the new object here and just place it on the click, needs to center though
       Selected = null;
 
     }
