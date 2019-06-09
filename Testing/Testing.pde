@@ -412,11 +412,13 @@ class Test implements Display, Damage, Detectable{
 class SunFlower implements Display, Detectable {
   float x,y;
   PImage p;
+  int timer;
 
   SunFlower (float xc, float yc, PImage i) {
     x = xc;
     y = yc;
     p = i;
+    timer = 0;
   }
 
   void display() {
@@ -450,6 +452,11 @@ class SunFlower implements Display, Detectable {
     thingsToDisplay.add(s);
     thingsToMove.add(s);
   }
+
+  void updateTimer(){
+    timer++;
+  }
+  
 }
 
 class Bullet implements Display, Move{
