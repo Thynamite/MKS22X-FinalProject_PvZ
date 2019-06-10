@@ -317,3 +317,9 @@ void mousePressed() {
       Selected = "Nothing";
     }
   }
+
+  void keyPressed() {
+    if (key == 'p') {
+      currency += 5000;
+    }
+  }
