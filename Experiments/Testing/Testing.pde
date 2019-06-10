@@ -77,7 +77,7 @@ void setup() {
     spawn.add(i);
   }
   int rands = (int)random(50) + 10;
-  for (int i = 0; i < rands; i++) {
+  for (int d = 0; d < rands; d++) {
     /*
     Sun s = new Sun((float)(Math.random() * 1000), 0.0 - temp, 350);
     thingsToDisplay.add(s);
