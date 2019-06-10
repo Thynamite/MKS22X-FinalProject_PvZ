@@ -27,9 +27,7 @@ PImage projectile;
 PImage lawn;
 PImage end;
 
-interface Detectable {
-  boolean detect(int xcor, int ycor, int dist);
-}
+
 
 void setup() {
   imageMode(CENTER);
@@ -301,12 +299,21 @@ void mousePressed() {
            */
           //maybe just a highlight of a selectable plant(in the top menu) instead of a dragging motion
         } else if (Selected.equals("sunFlower")) {
+          /*
           SunFlower s = new SunFlower(mouseX, mouseY, sunFlower);
           thingsToDisplay.add(s);
+          */
         }
       }
     } else if (!Selected.equals("Nothing")) {  //placing a thing, needs a check for validity
-
+      if (Selected.equals("PeaShooter")) {
+        Test a = new Test(mouseX,mouseY,peaShooter);
+        thingsToDisplay.add(a);
+      }
+      else if (Selected.equals("sunFlower")) {
+        SunFlower s = new SunFlower(mouseX,mouseY, sunFlowwer);
+        thingsToDisplay.add(s);
+      }
       //make the new object here and just place it on the click, needs to center though
       Selected = null;
     }
