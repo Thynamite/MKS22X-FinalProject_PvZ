@@ -348,4 +348,7 @@ void mousePressed() {
     if (key == 'p') {
       currency += 5000;
     }
+    if (key == 'o') {
+      zombietimer = 1199;
+    }
   }
