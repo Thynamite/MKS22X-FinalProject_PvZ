@@ -6,7 +6,7 @@ class Zombie implements Display, Move, Damage {
   Zombie(float xcor, float ycor, PImage i) {
     x = xcor;
     y = ycor;
-    HP = 200;
+    HP = 100;
     eating = false;
     p = i;
   }
@@ -33,7 +33,7 @@ class Zombie implements Display, Move, Damage {
       //thingsToMove.add(d);
     }
   }
-  void damage(){};
+  void damage(){}
   void damage(Plant other) {
     if (x == other.getX() + 30 && y == other.getY()) {
       eating = true;

@@ -17,9 +17,18 @@ int count = 0;
 String Selected = "Nothing";
 int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
-int zombietimer = 0;
+zombietimer = 0;
 
-PImage basicZomb, sunFlower, peaShooter, sun, mower, projectile, lawn, end;
+PImage basicZomb;
+PImage sunFlower;
+PImage peaShooter;
+PImage sun;
+PImage mower;
+PImage projectile;
+PImage lawn;
+PImage end;
+
+
 
 void setup() {
   imageMode(CENTER);
@@ -68,9 +77,9 @@ void setup() {
   rect(200,0,300,50);
   fill(153,76,0);
   rect(210,10,280,30);
-  Test l = new Test(250,30,peaShooter);
-  thingsToDisplay.add(l);
-  detects.add(l);
+  Test d = new Test(250,30,peaShooter);
+  thingsToDisplay.add(d);
+  detects.add(d);
   SunFlower j = new SunFlower(350,30,sunFlower);
   thingsToDisplay.add(j);
   detects.add(j);
@@ -89,20 +98,18 @@ void setup() {
     int location = (int)(Math.random() * 6);
     Zombie z = new Zombie(1000.0 + temp, spawn.get(location), basicZomb);
     thingsToDisplay.add(z);
-    //thingsToMove.add(z);
+    thingsToMove.add(z);
     zom.add(z);
     damageable.add(z);
     temp += 1000;
   }
 
   for (int i = 130; i < 460; i += 60) {
-    /*
     Test thing = new Test(100, i, peaShooter);
     thingsToDisplay.add(thing);
     eaten.add(thing);
     damageable.add(thing);
     detects.add(thing);
-    */
 
     LastDefense d = new LastDefense(70, i, mower);
     thingsToDisplay.add(d);
@@ -113,7 +120,6 @@ void setup() {
    detects.add(thingy);
    thingsToDisplay.add(thingy);
    */
-   /*
   for (int i = 130; i < 460; i += 60) {
     SunFlower s = new SunFlower(200, i, sunFlower);
     thingsToDisplay.add(s);
@@ -122,7 +128,6 @@ void setup() {
     detects.add(s);
     sunflows.add(s);
   }
-  */
 }
 
 void draw() {
@@ -193,6 +198,7 @@ void draw() {
       }
     }
   }
+
   for (Display d : thingsToDisplay) {
     d.display();
   }
@@ -316,17 +322,13 @@ void mousePressed() {
         if (currency >= 100) {
           Test a = new Test(mouseX,mouseY,peaShooter);
           thingsToDisplay.add(a);
-          eaten.add(a);
-          damageable.add(a);
           currency -= 100;
         }
       }
       else if (Selected.equals("sunFlower")) {
         if (currency >= 50) {
-          SunFlower s = new SunFlower(mouseX,mouseY, sunFlower);
+          SunFlower s = new SunFlower(mouseX,mouseY, sunFlowwer);
           thingsToDisplay.add(s);
-          eaten.add(s);
-          sunflows.add(s);
           currency -= 50;
         }
       }
