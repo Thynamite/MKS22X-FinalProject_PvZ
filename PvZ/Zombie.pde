@@ -21,7 +21,7 @@ class Zombie implements Display, Move, Damage {
     if (x == -100) {
       return;
     } else if (x != 0 && !eating) {
-      x -= 2;
+      x -= 1;
     }
   }
 
