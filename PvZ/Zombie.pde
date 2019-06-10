@@ -26,7 +26,7 @@ class Zombie implements Display, Move, Damage {
   }
 
   void touchDefense(LastDefense other) {
-    if (x == other.getX() + 30 && y == other.getY()) {
+    if (x <= other.getX() + 30 && y == other.getY()) {
 
       other.changeTriggered(true);
       this.HP = 0;

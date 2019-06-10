@@ -14,11 +14,7 @@ class LastDefense implements Display, Move {
   }
 
   void move() {
-    if (triggered) {
-      x = -100;
-      y = -100;
-      triggered = false;
-    }
+    x+= 10;
   }
 
   float getX() {

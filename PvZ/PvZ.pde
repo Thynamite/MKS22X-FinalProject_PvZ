@@ -193,6 +193,9 @@ void draw() {
   for (Zombie z : zom) {
     for (LastDefense ds : defenses) {
       z.touchDefense(ds);
+      if (ds.getTriggered()) {
+        thingsToMove.add(ds);
+      }
     }
   }
   for (LastDefense d : defenses) {
