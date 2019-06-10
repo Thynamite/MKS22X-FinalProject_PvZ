@@ -76,9 +76,9 @@ void setup() {
   rect(200,0,300,50);
   fill(153,76,0);
   rect(210,10,280,30);
-  Test i = new Test(250,30,peaShooter);
-  thingsToDisplay.add(i);
-  detects.add(i);
+  Test l = new Test(250,30,peaShooter);
+  thingsToDisplay.add(l);
+  detects.add(l);
   SunFlower j = new SunFlower(350,30,sunFlower);
   thingsToDisplay.add(j);
   detects.add(j);
@@ -308,7 +308,7 @@ void mousePressed() {
       }
       else if (Selected.equals("sunFlower")) {
         if (currency >= 50) {
-          SunFlower s = new SunFlower(mouseX,mouseY, sunFlowwer);
+          SunFlower s = new SunFlower(mouseX,mouseY, sunFlower);
           thingsToDisplay.add(s);
           currency -= 50;
         }

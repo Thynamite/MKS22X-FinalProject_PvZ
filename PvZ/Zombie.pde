@@ -33,6 +33,7 @@ class Zombie implements Display, Move, Damage {
       //thingsToMove.add(d);
     }
   }
+  void damage(){};
   void damage(Plant other) {
     if (x == other.getX() + 30 && y == other.getY()) {
       eating = true;
