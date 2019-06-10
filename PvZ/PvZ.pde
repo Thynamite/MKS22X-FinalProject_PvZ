@@ -16,7 +16,7 @@ ArrayList<SunFlower> sunflows = new ArrayList<SunFlower>();
 int count = 0;
 String Selected = "Nothing";
 int suntimer = 0; //every ten seconds will fall
-int plant1 = -1;
+
 int zombietimer = 0;
 
 PImage basicZomb;
@@ -103,19 +103,20 @@ void setup() {
     damageable.add(z);
     temp += 1000;
   }
-
+  /*
   for (int help : spawn) {
-    /*
+
     Test thing = new Test(100, i, peaShooter);
     thingsToDisplay.add(thing);
     eaten.add(thing);
     damageable.add(thing);
     detects.add(thing);
-    */
+
     LastDefense d = new LastDefense(70, help, mower);
     thingsToDisplay.add(d);
     //thingsToMove.add(d);
   }
+  */
   /*
   Test thingy = new Test(200,200);
    detects.add(thingy);
@@ -160,11 +161,11 @@ void draw() {
   rect(210,10,280,30);
   if (Selected.equals("PeaShooter")) {
     fill(255,255,204);
-    rect(210,10,140,15);
+    rect(210,10,140,30);
   }
   else if (Selected.equals("SunFlower")) {
     fill(255,255,204);
-    rect(300,10,70,15);
+    rect(300,10,140,30);
   }
 
   imageMode(CENTER);
@@ -184,7 +185,7 @@ void draw() {
     }
   }
   zombietimer++; //foor moving the zombies
-  if (zombietimer == 1200) {
+  if (zombietimer == 1800) {
     for (Zombie z : zom) {
       thingsToMove.add(z);
     }
@@ -241,8 +242,6 @@ void draw() {
       t.goAway();
       //     thingsToDisplay.remove(t);
     }
-    text(t.getX(),t.getX(),t.getY());
-    text(t.getY(),t.getX(),t.getY()+100);
   }
 
   for (Display d : thingsToDisplay) {
@@ -274,14 +273,8 @@ void draw() {
         if (z.getHP() == 0) {
           z.goAway();
         }
-        remove.add(b);
       }
     }
-  }
-
-  for (Bullet b : remove) {
-    thingsToDisplay.remove(b);
-    thingsToMove.remove(b);
   }
 
   for (Zombie z : zom) {
@@ -323,20 +316,22 @@ void mousePressed() {
         }
       }
     } else if (!Selected.equals("Nothing")) {  //placing a thing, needs a check for validity
-      float xt, yt;
-      float ydiff = MAX_INTEGER;
-      int yint;
-      for (int spawns : spawn) {
-        if (abs(mouseY - spawns) < ydiff) {
-          ydiff = abs(mouseY - spawns);
-        }
-        yint = spawns;
+      float xcor = 100;
+      float ycor = 130;
+
+      if (mouseX >= 100){
+        xcor = 100 + 80*( (int)(mouseX / 80));
+
+      }
+      if (mouseY >= 130){
+        ycor = 130 + 60*( (mouseY - 130 )/60);
+
       }
 
 
       if (Selected.equals("PeaShooter")) {
         if (currency >= 100) {
-          Test a = new Test(mouseX,yint,peaShooter);
+          Test a = new Test(xcor,ycor,peaShooter);
           thingsToDisplay.add(a);
           eaten.add(a);
           damageable.add(a);
@@ -345,7 +340,7 @@ void mousePressed() {
       }
       else if (Selected.equals("sunFlower")) {
         if (currency >= 50) {
-          SunFlower s = new SunFlower(mouseX,yint, sunFlower);
+          SunFlower s = new SunFlower(xcor,ycor, sunFlower);
           thingsToDisplay.add(s);
           eaten.add(s);
           sunflows.add(s);
