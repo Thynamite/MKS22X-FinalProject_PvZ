@@ -20,7 +20,7 @@ class Bullet implements Display, Move {
     }
   }
   boolean inRange(Zombie z) {
-    if (z.getX() - x <= 20 && z.getY() - y <= 20) {
+    if (z.getX() <= x && z.getY() == y) {
       return true;
     }
     return false;

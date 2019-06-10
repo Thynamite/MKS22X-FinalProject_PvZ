@@ -184,6 +184,9 @@ void draw() {
       s.resetTimer();
     }
   }
+  for (Sun s : sunList) {
+    s.decay();
+  }
   zombietimer++; //foor moving the zombies
   if (zombietimer == 1800) {
     for (Zombie z : zom) {
@@ -268,17 +271,15 @@ void draw() {
     }
   }
 
+
+
   for (Zombie z : zom) {
-    if (z.getX() == 0) {
+    if (z.getX() <= 0) {
       noLoop();
       imageMode(CORNER);
       image(end, 0, 0);
     }
   }
-  for (Sun s : sunList) {
-    s.decay();
-  }
-
   for (Display d : thingsToDisplay) {
     if (d.getX() == -100 && d.getY() == -100) {
       thingsToRemove.add(d);
