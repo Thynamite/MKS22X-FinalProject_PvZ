@@ -17,17 +17,9 @@ int count = 0;
 String Selected = "Nothing";
 int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
+int zombietimer = 0;
 
-PImage basicZomb;
-PImage sunFlower;
-PImage peaShooter;
-PImage sun;
-PImage mower;
-PImage projectile;
-PImage lawn;
-PImage end;
-
-
+PImage basicZomb, sunFlower, peaShooter, sun, mower, projectile, lawn, end;
 
 void setup() {
   imageMode(CENTER);
@@ -97,18 +89,20 @@ void setup() {
     int location = (int)(Math.random() * 6);
     Zombie z = new Zombie(1000.0 + temp, spawn.get(location), basicZomb);
     thingsToDisplay.add(z);
-    thingsToMove.add(z);
+    //thingsToMove.add(z);
     zom.add(z);
     damageable.add(z);
     temp += 1000;
   }
 
   for (int i = 130; i < 460; i += 60) {
+    /*
     Test thing = new Test(100, i, peaShooter);
     thingsToDisplay.add(thing);
     eaten.add(thing);
     damageable.add(thing);
     detects.add(thing);
+    */
 
     LastDefense d = new LastDefense(70, i, mower);
     thingsToDisplay.add(d);
@@ -119,6 +113,7 @@ void setup() {
    detects.add(thingy);
    thingsToDisplay.add(thingy);
    */
+   /*
   for (int i = 130; i < 460; i += 60) {
     SunFlower s = new SunFlower(200, i, sunFlower);
     thingsToDisplay.add(s);
@@ -127,6 +122,7 @@ void setup() {
     detects.add(s);
     sunflows.add(s);
   }
+  */
 }
 
 void draw() {
@@ -179,7 +175,24 @@ void draw() {
       s.resetTimer();
     }
   }
-
+  zombietimer++; //foor moving the zombies
+  if (zombietimer == 1200) {
+    for (Zombie z : zom) {
+      thingsToMove.add(z);
+    }
+  }
+  //for spawning waves
+  if (zombietimer >= 3600 && zombietimer % 180 == 0) {
+    if (random(100) <= 20) {
+      int rand = int(random(10)) + 4;
+      for (int i = 0; i < rand; i++) {
+        int location = (int)(Math.random() * 6);
+        Zombie z = new Zombie(1000.0, spawn.get(location), basicZomb);
+        thingsToDisplay.add(z);
+        thingsToMove.add(z);
+      }
+    }
+  }
   for (Display d : thingsToDisplay) {
     d.display();
   }
@@ -303,6 +316,8 @@ void mousePressed() {
         if (currency >= 100) {
           Test a = new Test(mouseX,mouseY,peaShooter);
           thingsToDisplay.add(a);
+          eaten.add(a);
+          damageable.add(a);
           currency -= 100;
         }
       }
@@ -310,10 +325,21 @@ void mousePressed() {
         if (currency >= 50) {
           SunFlower s = new SunFlower(mouseX,mouseY, sunFlower);
           thingsToDisplay.add(s);
+          eaten.add(s);
+          sunflows.add(s);
           currency -= 50;
         }
       }
       //make the new object here and just place it on the click, needs to center though
       Selected = "Nothing";
+    }
+  }
+
+  void keyPressed() {
+    if (key == 'p') {
+      currency += 5000;
+    }
+    if (key == 'o') {
+      zombietimer = 1199;
     }
   }

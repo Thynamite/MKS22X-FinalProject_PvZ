@@ -6,7 +6,7 @@ class Zombie implements Display, Move, Damage {
   Zombie(float xcor, float ycor, PImage i) {
     x = xcor;
     y = ycor;
-    HP = 100;
+    HP = 200;
     eating = false;
     p = i;
   }
