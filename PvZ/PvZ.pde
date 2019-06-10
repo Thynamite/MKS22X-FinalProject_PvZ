@@ -71,6 +71,18 @@ void setup() {
   text("Sun : " + currency, 10, 40);
   int temp = 1000;
 
+  //plants menu
+  fill(102,51,0);
+  rect(200,0,300,50);
+  fill(153,76,0);
+  rect(210,10,280,30);
+  Test i = new Test(250,30,peaShooter);
+  thingsToDisplay.add(i);
+  detects.add(i);
+  SunFlower j = new SunFlower(350,30,sunFlower);
+  thingsToDisplay.add(j);
+  detects.add(j);
+
   for (int i = 130; i < 460; i += 60) {
     spawn.add(i);
   }
@@ -136,6 +148,13 @@ void draw() {
   textSize(40);
   fill(253, 143, 59);
   text("Sun : " + currency, 10, 40);
+
+  //plant menu
+  fill(102,51,0);
+  rect(200,0,300,50);
+  fill(153,76,0);
+  rect(210,10,280,30);
+  
   imageMode(CENTER);
   suntimer++;
   if (suntimer >= 600) {
