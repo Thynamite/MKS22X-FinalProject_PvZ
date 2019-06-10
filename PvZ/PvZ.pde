@@ -292,6 +292,9 @@ void mousePressed() {
       }
       if (!Selected.equals("Nothing") ) {
         if (Selected.equals("PeaShooter")) {
+          if (currency >= 100) {
+            //highlight
+          }
           /*
         Test a = new Test(mouseX,mouseY,peaShooter);
            //detects.add(a);
@@ -299,6 +302,9 @@ void mousePressed() {
            */
           //maybe just a highlight of a selectable plant(in the top menu) instead of a dragging motion
         } else if (Selected.equals("sunFlower")) {
+          if (currency >= 50) {
+            //highlight
+          }
           /*
           SunFlower s = new SunFlower(mouseX, mouseY, sunFlower);
           thingsToDisplay.add(s);
@@ -309,12 +315,14 @@ void mousePressed() {
       if (Selected.equals("PeaShooter")) {
         Test a = new Test(mouseX,mouseY,peaShooter);
         thingsToDisplay.add(a);
+        currency -= 100;
       }
       else if (Selected.equals("sunFlower")) {
         SunFlower s = new SunFlower(mouseX,mouseY, sunFlowwer);
         thingsToDisplay.add(s);
+        currency -= 50;
       }
       //make the new object here and just place it on the click, needs to center though
-      Selected = null;
+      Selected = "Nothing";
     }
   }
