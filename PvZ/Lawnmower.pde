@@ -15,13 +15,9 @@ class LastDefense implements Display, Move {
 
   void move() {
     if (triggered) {
-      x+= 10;
-    }
-
-    if (x >= 1000) {
-      triggered = false;
       x = -100;
       y = -100;
+      triggered = false;
     }
   }
 

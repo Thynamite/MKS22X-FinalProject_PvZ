@@ -24,13 +24,12 @@ class Zombie implements Display, Move, Damage {
       x -= 2;
     }
   }
-  void damage() {
-  }
-  void touchDefense(LastDefense d) {
-    if (x == d.getX() + 30 && y == d.getY()) {
 
-      d.changeTriggered(true);
-      HP = 0;
+  void touchDefense(LastDefense other) {
+    if (x == other.getX() + 30 && y == other.getY()) {
+
+      other.changeTriggered(true);
+      this.HP = 0;
       //thingsToMove.add(d);
     }
   }
