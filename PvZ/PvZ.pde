@@ -212,7 +212,7 @@ void draw() {
       z.damage(t);
     }
   }
-
+  /*
   for (Zombie z : zom) {
     for (LastDefense ds : defenses) {
       z.touchDefense(ds);
@@ -232,7 +232,7 @@ void draw() {
       }
     }
   }
-
+  */
   for (Move m : thingsToMove) {
     m.move();
   }
@@ -241,17 +241,6 @@ void draw() {
     if (t.getHP() == 0) {
       t.goAway();
       //     thingsToDisplay.remove(t);
-    }
-  }
-
-  for (Display d : thingsToDisplay) {
-    if (d.getX() == -100 && d.getY() == -100) {
-      thingsToRemove.add(d);
-    }
-  }
-  if (thingsToRemove.size() > 0) {
-    for (int x = 0; x < thingsToRemove.size(); x++) {
-      thingsToRemove.remove(x);
     }
   }
 
@@ -273,7 +262,9 @@ void draw() {
         if (z.getHP() == 0) {
           z.goAway();
         }
+        return;
       }
+
     }
   }
 
@@ -286,6 +277,17 @@ void draw() {
   }
   for (Sun s : sunList) {
     s.decay();
+  }
+
+  for (Display d : thingsToDisplay) {
+    if (d.getX() == -100 && d.getY() == -100) {
+      thingsToRemove.add(d);
+    }
+  }
+  if (thingsToRemove.size() > 0) {
+    for (int x = 0; x < thingsToRemove.size(); x++) {
+      thingsToRemove.remove(x);
+    }
   }
 }
 
