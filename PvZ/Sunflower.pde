@@ -40,7 +40,7 @@ class SunFlower extends Plant implements Display, Detectable {
    */
 
   void produceSun() {
-    Sun s = new Sun(x, y, x-10, sun);
+    Sun s = new Sun(x, y, y+10, sun);
     thingsToDisplay.add(s);
     thingsToMove.add(s);
     sunList.add(s);
