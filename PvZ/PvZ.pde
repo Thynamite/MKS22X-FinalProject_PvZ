@@ -17,6 +17,7 @@ int count = 0;
 String Selected = "Nothing";
 int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
+int zombietimer = 0;
 
 PImage basicZomb;
 PImage sunFlower;
@@ -97,7 +98,7 @@ void setup() {
     int location = (int)(Math.random() * 6);
     Zombie z = new Zombie(1000.0 + temp, spawn.get(location), basicZomb);
     thingsToDisplay.add(z);
-    thingsToMove.add(z);
+    //thingsToMove.add(z);
     zom.add(z);
     damageable.add(z);
     temp += 1000;
@@ -183,7 +184,13 @@ void draw() {
       s.resetTimer();
     }
   }
-
+  zombietimer++;
+  if (zombietimer == 1200) {
+    for (Zombie z : zom) {
+      thingsToMove.add(z);
+    }
+  }
+  
   for (Display d : thingsToDisplay) {
     d.display();
   }
