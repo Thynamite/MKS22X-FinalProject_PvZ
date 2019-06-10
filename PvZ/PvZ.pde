@@ -180,20 +180,6 @@ void draw() {
     }
   }
 
-  if (plant1 != -1) {
-    plant1++;
-    //listofplants.get(1)
-    if (plant1 >= 1000) {
-      //listofplants.get(1) ready
-      plant1 = 0;
-    }
-  }
-  /*
-  for (Plant a : detects) {
-   a.update();
-   //text(a.getX(),a.getX(),a.getY());
-   }
-   */
   for (Display d : thingsToDisplay) {
     d.display();
   }
@@ -242,19 +228,11 @@ void draw() {
       thingsToRemove.remove(x);
     }
   }
-  /*
-  text(mouseX,400,400);
-   text(mouseY,400,500);
-   */
-  /*
-  if(Selected != null) {
-   text(Selected.toString(),400,600);
-   }
-   */
+
   text(millis(), 500, 500);
-  count += 5;
+  count ++;
   text(count + "count", 100, 500);
-  if (count == 1000) {
+  if (count >= 90) {
     for (Plant t : eaten) {
       t.shoot();
     }

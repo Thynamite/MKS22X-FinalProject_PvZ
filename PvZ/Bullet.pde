@@ -16,7 +16,7 @@ class Bullet implements Display, Move {
   }
   void damage(Zombie z) {
     if (inRange(z)) {
-      z.hit(1);
+      z.hit(20);
     }
   }
   boolean inRange(Zombie z) {
