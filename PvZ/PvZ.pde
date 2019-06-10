@@ -164,8 +164,8 @@ void draw() {
     rect(210,10,140,30);
   }
   else if (Selected.equals("SunFlower")) {
-    fill(255,255,204);
-    rect(300,10,140,30);
+    fill(255,255,255);
+    rect(310,10,140,30);
   }
 
   imageMode(CENTER);
@@ -246,10 +246,11 @@ void draw() {
       //     thingsToDisplay.remove(t);
     }
   }
-
+  /*
   text(millis(), 500, 500);
   count ++;
   text(count + "count", 100, 500);
+  */
   if (count >= 90) {
     for (Plant t : eaten) {
       t.shoot();

@@ -1,5 +1,25 @@
 # MKS22X-FinalProject_PvZ
-- Plants v. Zombies
+## Plants v. Zombies
+  This is supposed to be an attempt to be a recreation of the PopCap Game "Plants vs. Zombies". Here we are to defend an arbitrary house against hordes of zombies for the protection of your brains. With only plants at your disposal to defend yourself. However, in this case, only the basics will be provided to protect against normal zombies. Good luck. (Especially with bugs)
+
+## How to play
+  From the start, the game immediately begins, and you have 50 sun to begin with.
+    Sun will periodically drop from the sky (around 10 seconds)
+    There are only two plants from the game available in this endless mode: the PeaShooter and the SunFlower. Both invaluable in this case.
+    The SunFlower costs 50 sun and the PeaShooter costs 100 sun.
+    The first zombie comes around 30 seconds, in which you have time to build up a defense.
+
+    Simply click on a plant in the top menu and click near on the lawn to place it, provided you have enough sun to do so.
+
+    Tips:
+      - Build up your sun production
+      - Your sun will decay on the ground, better pick it up
+      - Pressing "p" will give you 5000 sun
+      - Pressing "o" will give you no time to prepare
+
+  Here you do not have lawnmowers, since you need to buy them, and not with circles that look like suns. You need money, but we do not accept any form of currency as legal tender (yes we are the new government)
+
+## Development Log
 # Monday May 20th
 -Brandon
   - Research about the technicalities behind the game and experimented with the mouse functions
@@ -72,3 +92,29 @@
   -Created a bullet class
   -Created a timer for the bullets' generation
   -Added damage function to the bullets, only works on non-moving zombies
+
+# Tuesday June 4th
+
+-Brandon
+  - Attempted start to lawnmowers, but they won't move and thus won't be one-use
+  - Uploaded and loaded some images for the objects in setup
+
+# Wednesday June 5th - Friday June 7th
+
+-Brandon
+  - Brainstorming remaining features and solutions to issues (not much success)
+
+# Sunday June 9th
+
+-Brandon
+  - Uploaded remaining images by placing pimage as a instance variable rather than only instantiating in setup
+  - Created a sunflower class to produce sun and be placed down
+  - Adjusted bullet damage, image,  disappearing on impact and making sure that they all don't disappear when something dies
+  - Loss screen
+  - Created plant menu to select either plant
+  - Changed mousepressed to indicate a selected plant with a highlight, instead of a dragged thing
+  - Cheat codes to give sun and speed up game
+  - Moved zombie spawns back to be delayed
+  - Made centering of plants, though it may end up a bit far away due to mathematical errors
+  - General touchups, but still buggy
+  - Update and finish readme
