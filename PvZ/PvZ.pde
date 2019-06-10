@@ -104,11 +104,13 @@ void setup() {
   }
 
   for (int i = 130; i < 460; i += 60) {
+    /*
     Test thing = new Test(100, i, peaShooter);
     thingsToDisplay.add(thing);
     eaten.add(thing);
     damageable.add(thing);
     detects.add(thing);
+    */
 
     LastDefense d = new LastDefense(70, i, mower);
     thingsToDisplay.add(d);
@@ -119,6 +121,7 @@ void setup() {
    detects.add(thingy);
    thingsToDisplay.add(thingy);
    */
+   /*
   for (int i = 130; i < 460; i += 60) {
     SunFlower s = new SunFlower(200, i, sunFlower);
     thingsToDisplay.add(s);
@@ -127,6 +130,7 @@ void setup() {
     detects.add(s);
     sunflows.add(s);
   }
+  */
 }
 
 void draw() {
@@ -303,6 +307,8 @@ void mousePressed() {
         if (currency >= 100) {
           Test a = new Test(mouseX,mouseY,peaShooter);
           thingsToDisplay.add(a);
+          eaten.add(a);
+          damageable.add(a);
           currency -= 100;
         }
       }
@@ -310,6 +316,8 @@ void mousePressed() {
         if (currency >= 50) {
           SunFlower s = new SunFlower(mouseX,mouseY, sunFlowwer);
           thingsToDisplay.add(s);
+          eaten.add(s);
+          sunflows.add(s);
           currency -= 50;
         }
       }
