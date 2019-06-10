@@ -19,16 +19,7 @@ int suntimer = 0; //every ten seconds will fall
 int plant1 = -1;
 int zombietimer = 0;
 
-PImage basicZomb;
-PImage sunFlower;
-PImage peaShooter;
-PImage sun;
-PImage mower;
-PImage projectile;
-PImage lawn;
-PImage end;
-
-
+PImage basicZomb, sunFlower, peaShooter, sun, mower, projectile, lawn, end;
 
 void setup() {
   imageMode(CENTER);
@@ -184,13 +175,13 @@ void draw() {
       s.resetTimer();
     }
   }
-  zombietimer++;
+  zombietimer++; //foor moving the zombies
   if (zombietimer == 1200) {
     for (Zombie z : zom) {
       thingsToMove.add(z);
     }
   }
-
+  //for spawning waves
   if (zombietimer >= 3600 && zombietimer % 180 == 0) {
     if (random(100) <= 20) {
       int rand = int(random(10)) + 4;
