@@ -154,7 +154,15 @@ void draw() {
   rect(200,0,300,50);
   fill(153,76,0);
   rect(210,10,280,30);
-  
+  if (Selected.equals("PeaShooter")) {
+    fill(255,255,204);
+    rect(210,10,140,15);
+  }
+  else if (Selected.equals("SunFlower")) {
+    fill(255,255,204);
+    rect(300,10,70,15);
+  }
+
   imageMode(CENTER);
   suntimer++;
   if (suntimer >= 600) {
