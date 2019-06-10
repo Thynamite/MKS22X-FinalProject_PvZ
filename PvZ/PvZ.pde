@@ -190,7 +190,18 @@ void draw() {
       thingsToMove.add(z);
     }
   }
-  
+
+  if (zombietimer >= 3600 && zombietimer % 180 == 0) {
+    if (random(100) <= 20) {
+      int rand = int(random(10)) + 4;
+      for (int i = 0; i < rand; i++) {
+        int location = (int)(Math.random() * 6);
+        Zombie z = new Zombie(1000.0, spawn.get(location), basicZomb);
+        thingsToDisplay.add(z);
+        thingsToMove.add(z);
+      }
+    }
+  }
   for (Display d : thingsToDisplay) {
     d.display();
   }
